@@ -1,0 +1,436 @@
+
+
+CREACION DE UN REST SERVER POR PASOS corriendo en express
+
+*	"npm init -y" para crear package.json
+
+*	"npm i express dotenv" express es para crear el express server y dotenv es para configuarar variables de entorno
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	ir a https://www.npmjs.com/package/express 
+	copiar codigó que aparece ahi:
+
+	┌───────────────────────────────────────┐
+	│ const express = require('express')	│
+	│ const app = express()				    │
+	│ 									    │
+	│ app.get('/', function (req, res) {	│
+	│   res.send('Hello World')			    │
+	│ })									│
+	│									    │
+	│ app.listen(3000)						│
+	└───────────────────────────────────────┘
+// ------------------------------------------------------------------------------------------------------------------
+
+*	"npm i express dotenv" instalar dotenv
+	
+	Agregar el puerto deseado desde el cual funcionara el rest server en un archivo llamado ".en", 
+	dentro colocar ej: "PORT=8080".
+
+	Luego dentro de "package.json" abajo de "main": "index.js" agregar "type": "module",
+
+	Luego modificar el código orignal por algo asi:
+
+	┌───────────────────────────────────────────────────────────────────┐
+	│ import dotenv from 'dotenv';        								│
+	│ dotenv.config();													│
+	│ import express from 'express';									│
+	│																	│
+	│ const app = express()												│
+	│																	│
+	│ app.get('/', function (req, res) {								│
+	│  res.send('Hello World')											│
+	│ })																│
+	│																	│
+	│ app.listen( process.env.PORT, () => {								│
+	│    console.log('Servidor corriendo en puerto', process.env.PORT); │
+	│ } );																│
+	└───────────────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Crear archivo ".gitignore" dentro incluir 
+		.env
+		node_modules/
+
+	Los cuales seran los archivos y carpetas ignoradas al momento de subir a github
+	
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Crear carpeta "models" y archivo "server.js". Esté ultimo contendrá todos lo que tenga que ver con el servidor. 
+	
+	"Server.js" quedaria algo asi:
+
+	┌───────────────────────────────────────────────────────────────────────┐
+	│ import express from 'express';									   	│
+	│																	   	│
+	│ class Server {													   	│
+	│																	   	│
+	│    constructor() {													│
+	│        this.app = express()											│
+	│        this.port = process.env.PORT;									│
+	│        this.routes();													│
+	│	 }																	│
+	│																		│
+	│    routes() {															│
+	│        this.app.get('/', (req, res) => {								│
+	│                res.send('Hello World')								│
+	│          });															│
+	│    }																	│
+	│																		│
+	│    listen() {															│
+	│        this.app.listen( this.port, () => {							│
+	│            console.log('Servidor corriendo en puerto', this.port);	│
+	│        } );															│
+	│    }																	│
+	│																		│
+	│ }																		│
+	│																		│
+	│ export { Server }														│
+	└───────────────────────────────────────────────────────────────────────┘
+
+	"app.js" quedaria algo asi:
+
+	┌───────────────────────────────────────────────────┐
+	│ import dotenv from 'dotenv'; 						│	
+	│ dotenv.config();       							│
+	│ import { Server } from './models/server.js';		│
+    │ 													│	
+	│ const server = new Server();						│
+    │ 													│
+	│ server.listen();									│
+	└───────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Para agregar un html habria qeu realizar lo siguiente:
+	
+	Crear carpeta "public" y un archivo "html" ej: "index.html". Dentro de esté presionar "! + tab" para que genere 
+	un esqueleto html. Luego agregarlo en "server.js" de la siguiente manera:
+
+	"server.js"
+	┌───────────────────────────────────────────────────────────────────────┐
+	│ import express from 'express';									   	│
+	│																	   	│	"Middlewares"
+	│ class Server {													   	│	Son algo asi como funciones que siempre
+	│																	   	│	se ejecutaran cuando levantemos el 
+	│    constructor() {													│	servidor.
+	│        this.app = express()											│
+	│        this.port = process.env.PORT;									│
+	│																		│
+	│	     // Middlewares      											│
+	│        this.middlewares();											│	
+	│         // Rutas de mi aplicación										│
+	│        this.routes();													│
+	│	 }																	│
+	│																		│
+	│	 middlewares() {													│
+	│        // Directorio publico											│
+	│        this.app.use( express.static('public'));						│
+	│         																│
+	│    }																	│
+	│																		│
+	│    routes() {															│
+	│        this.app.get('/', (req, res) => {								│
+	│                res.send('Hello World')								│
+	│          });															│
+	│    }																	│
+	│																		│
+	│    listen() {															│
+	│        this.app.listen( this.port, () => {							│
+	│            console.log('Servidor corriendo en puerto', this.port);	│
+	│        } );															│
+	│    }																	│
+	│																		│
+	│ }																		│
+	│																		│
+	│ export { Server }														│
+	└───────────────────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Para crear un rest API se haria lo siguiente:
+
+	en "routes" se colocaria lo siguiente:
+
+	┌───────────────────────────────────────────────┐
+	│ routes() {									│
+	│												│
+    │ 	this.app.get('/api', (req, res) => {		│
+    │        res.json({								│
+    │            msg: 'get API'						│
+    │       });										│
+    │   });											│
+    │   this.app.put('/api', (req, res) => {		│
+    │        res.json({								│
+    │            msg: 'put API'						│
+    │        });									│
+    │    });										│
+    │    this.app.post('/api', (req, res) => {		│
+    │         res.json({							│
+    │             msg: 'post API'					│
+    │        });									│
+    │    });										│
+    │    this.app.delete('/api', (req, res) => {	│
+    │         res.json({							│
+    │             msg: 'delete API'					│
+    │        });									│
+    │    });										│
+    │    this.app.patch('/api', (req, res) => {		│
+    │         res.json({							│
+    │             msg: 'patch API'					│
+    │        });									│
+    │    });										│
+    │ }												│
+	└───────────────────────────────────────────────┘
+
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Instalamos cors https://www.npmjs.com/package/cors
+
+	Permite que solo ciertas páginas web puedan acceder a las APIs, protegiendo el servidor de una manera 
+	relativamente superficial.
+
+	Cors permite agregar sitios a una lista blanca para tener acceso a el API y mas opciones, investigar
+	sobre ello.
+
+	Para agregarlo al código actual:
+
+	"server.js"
+	┌───────────────────────────────────────────────────┐
+	│ import express from 'express';					│	Agregamos el import de 'cors' y
+	│ import cors from 'cors';							│	en la sección de 'middlewares'
+	│													│	agregamos 'this.app.use(cors())'
+	│	middlewares() {									│   y listo.
+	│   	// CORS 									│
+    │    	this.app.use(cors());    					│
+	│		// Directorio publico						│
+	│       this.app.use( express.static('public'));	│		
+	│	}												│
+	└───────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Para separar las rutas en un nuevo archivo se hace lo siguiente:
+
+	Se crea carpera "routes", dentro archivo "usuarios.routes.js"
+
+	"usuarios.routes.js"
+	┌───────────────────────────────────────┐
+	│ import { Router } from 'express';		│
+	│										│
+	│ const router = Router();				│	Se agrega el import de Router proveniente
+	│										│   de express, luego se declara una constante
+	│ router.get('/', (req, res) => {		│   router de Router() y se pasan los métodos
+	│ 	  res.json({						│	al nuevo archivo con las modifiaciones
+	│         msg: 'get API'				│	correspondientes usando en vez de
+	│	  });								│	"this.app.get" / "router.get"
+	│ });									│
+	│ router.put('/', (req, res) => {		│
+	│ 	  res.json({						│
+	│         msg: 'put API'				│
+	│	  });								│
+	│ });									│
+	│ router.post('/', (req, res) => {		│
+	│ 	  res.json({						│
+	│         msg: 'post API'				│
+	│	  });								│
+	│ });									│
+	│ router.delete('/', (req, res) => {	│
+	│ 	  res.json({						│
+	│         msg: 'delete API'				│
+	│	  });								│
+	│ });									│
+	│ router.patch('/', (req, res) => {		│
+	│ 	  res.json({						│
+	│         msg: 'patch API'				│
+	│	  });								│
+	│ });									│
+	│										│																																│																	│																		│
+	│ export { router }						│
+	└───────────────────────────────────────┘
+
+	"server.js"
+	┌───────────────────────────────────────────────────────────┐
+	│ import express from 'express';							│
+	│ import cors from 'cors';									│	En "server.js" se realizan las modificaciones
+	│ import { router } from '../routes/usuarios.routes.js';	│	señaladas. 	
+	│															│
+	│ class Server { 											│	Se puede crear una constante, en este caso llamada
+	│	   														│   "this.usuariosPath" donde se puede almacenar las 
+	│ 	constructor() {											│	rutas para que sea mas facil de ver estas.
+	│	  	this.app = express()								│    
+	│	  	this.port = process.env.PORT;						│ 	Solo coloque parte del código, los segmentos que
+	│	  	this.usuariosPath = '/api/usuarios';				│   no aparecen aqui se mantienen igual.
+	│	  	// Middlewares    									│   
+	│	  	this.middlewares();									│	
+	│	  	// Rutas de mi aplicación							│
+	│	  	this.routes();										│
+	│ 	}	  													│
+	│	  														│			
+	│    routes() {												│
+	│        this.app.use('/api/usuarios', router);				│
+	│    }														│
+	│ }															│
+	│															│
+	│ export { Server }											│
+	└───────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Se puede separar "usuarios.routes.js" para dejar los "res.json({	msg: ''});" en un archivo a parte, cosa que
+    quede de manera mas ordenada, lo cual se hace de la siguiente manera:
+
+    Se crea una carpeta llamada "controllers" dentro de la cual se crea archivo "usuarios.controllers.js"
+
+    "usuarios.controllers.js"
+	┌───────────────────────────────────────────────────┐
+	│ import { response } from 'express';				│
+	│													│
+	│ const usuariosGet = (req, res = response) => {	│
+    │	  res.json({									│
+    │      	  msg: 'get API - controlador'				│
+    │	  });											│
+	│ }													│
+	│													│
+	│ const usuariosPut = (req, res = response) => {	│
+    │	  res.json({									│
+    │      	  msg: 'put API - controlador'				│
+    │	  });											│
+	│ }													│
+	│													│
+	│ const usuariosPost = (req, res = response) => {	│
+    │	  res.json({									│
+    │      	  msg: 'post API - controlador'				│
+    │	  });											│
+	│ }													│
+	│													│
+	│ const usuariosDelete = (req, res = response) => {	│
+    │	  res.json({									│
+    │      	  msg: 'delete API - controlador'			│
+    │	  });											│
+	│ }													│
+	│													│
+	│ const usuariosPatch = (req, res = response) => {	│
+    │	  res.json({									│
+    │      	  msg: 'patch API - controlador'			│
+    │	  });											│
+	│ }													│
+	│													│
+	│													│
+	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	│
+    │		*/  usuariosDelete, usuariosPatch }			│
+    │													│
+	└───────────────────────────────────────────────────┘
+
+	"usuarios.routes.js"
+	┌───────────────────────────────────────────────────────────────────────────────────┐
+	│ import { Router } from 'express';													│
+	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │							
+    │		   from '../controllers/usuarios.controllers.js';							│	"usuarios.routes.js" quedaria
+    │		   																			│	de la siguiente manera, 
+    │ const router = Router();															│	teniendo solamente los 
+    │       																			│	llamados a las funciones 
+    │ router.get('/', usuariosGet );													│	guardadas en 
+    │       																			│	"usuarios.controllers.js"
+    │ router.put('/', usuariosPut );													│
+    │																					│
+    │ router.post('/', usuariosPost );													│
+    │																					│
+    │ router.delete('/', usuariosDelete );												│
+    │																					│
+    │ router.patch('/', usuariosPatch );												│
+    │ 																					│
+    │ export { router }																	│
+	└───────────────────────────────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Para Capturar datos provenientes de un Json mediante una consulta post hay que realizar
+	las siguientes modificaciones:
+
+    "usuarios.controllers.js"
+	┌───────────────────────────────────────────────────┐
+	│ import { response } from 'express';				│
+	│													│	Solo soloque el "UsuariosPost" ya que es el unico
+	│  const usuariosPost = (req, res = response) => {	│	modificado en está parte.
+	│													│	
+    │  	  /* const body = req.body; */             		│	Al colocar "const body = req.body;" estoy capturando 
+    │ 	  const { nombre, edad }= req.body;   			│	todo lo que venga en el body del archivo json y
+    │	  res.status(201).json({						│	guardandolo en la constante "body".
+    │      	  msg: 'post API - controlador',			│	
+    │    	  nombre,									│	Ahora al colocar "const { nombre, edad }= req.body;"
+    │    	  edad										│	solo estoy extrayendo de el archivo json los campos
+    │ 	  });											│	seleccionados gracias a la desestructuración de argumentos
+	│  };												│	filtrando de esa manera todo lo demas
+	└───────────────────────────────────────────────────┘
+
+	"server.js"
+	┌───────────────────────────────────────────────────────────┐
+	│ import express from 'express';							│	Se coloca "this.app.use(express.json());"
+	│ import cors from 'cors';									│	en middlewareas para que la información 	
+	│ import { router } from '../routes/usuarios.routes.js';	│	que viene entrando se intente serializar 
+	│															│	como un json.
+	│ class Server { 											│
+	│	  														│
+	│    middlewares() {										│
+	│       /* CORS */											│
+	│		this.app.use(cors());								│
+	│		/* Lectura y parseo del body */						│
+	│		this.app.use(express.json());  		   				│
+	│    	/* Directorio publico */							│
+	│		this.app.use( express.static('public'));			│
+	│	 }														│
+	│ }															│
+	│															│
+	│ export { Server }											│
+	└───────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	En el caso del "put", para que tenga que ser enviado un parametro al momento de ejecutarse el parámetro
+	y que esté sea recibido de manera dinámica se realizaria de la siguiente manera:
+
+	    "usuarios.controllers.js"
+	┌───────────────────────────────────────────────────┐
+	│ import { response } from 'express';				│
+	│													│
+	│ const usuariosPut = (req, res = response) => {	│
+	│	  const {id} = req.params;						│
+	│	  res.json({									│
+	│	      msg: 'put API - controlador',				│
+	│	      id 										│
+	│	  });											│
+	│ };												│
+	└───────────────────────────────────────────────────┘
+
+		"usuarios.routes.js"
+	┌───────────────────────────────────┐
+    │ router.put('/:id', usuariosPut );	│	Colocando '/:id?' Indicaria que el envio del id dentro de la consulta
+	└───────────────────────────────────┘	seria opcional, pero al estar '/:id' si o si tiene que estar.
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*	Ahora si recibiera la siguiente consulta en un "Get"
+	http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&limit=10
+
+	Al estos estar con '?' indicamos que son valores opcionales
+
+	    "usuarios.controllers.js"
+	┌────────────────────────────────────────────────────────────────────────────┐
+	│ import { response } from 'express';										 │	Aqui en "nombre = 'No name'"
+	│																			 │	indicamos gracias a la 
+	│ const usuariosGet = (req, res = response) => {							 │  desestructuración de argumentos 
+	│	  const query = req.query;												 │  que si el campo "nombre" viene
+	│	  const { q, nombre = 'No name', apikey,page = '1', limit } = req.query; │	vacio indique que esté es igual
+	│	  																		 │	a "no name". caso que se repite	
+	│	  res.json({															 │	con "page = '1'"
+	│	      msg: 'put API - controlador',										 │
+	│	      q, nombre, apikey, page, limit									 │
+	│	  });																	 │
+	│ };																		 │
+	└────────────────────────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------

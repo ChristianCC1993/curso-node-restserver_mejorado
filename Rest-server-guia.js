@@ -1,5 +1,5 @@
 
-
+/*
 CREACION DE UN REST SERVER POR PASOS corriendo en express
 
 *	"npm init -y" para crear package.json
@@ -248,7 +248,7 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	│         msg: 'patch API'				│
 	│	  });								│
 	│ });									│
-	│										│																																│																	│																		│
+	│										│
 	│ export { router }						│
 	└───────────────────────────────────────┘
 
@@ -320,8 +320,8 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	│ }													│
 	│													│
 	│													│
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	│
-    │		*/  usuariosDelete, usuariosPatch }			│
+	│ export{ usuariosGet, usuariosPut, usuariosPost,	│
+    │		  usuariosDelete, usuariosPatch }			│
     │													│
 	└───────────────────────────────────────────────────┘
 
@@ -357,7 +357,7 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	│													│	Solo soloque el "UsuariosPost" ya que es el unico
 	│  const usuariosPost = (req, res = response) => {	│	modificado en está parte.
 	│													│	
-    │  	  /* const body = req.body; */             		│	Al colocar "const body = req.body;" estoy capturando 
+    │  	  // const body = req.body;              		│	Al colocar "const body = req.body;" estoy capturando 
     │ 	  const { nombre, edad }= req.body;   			│	todo lo que venga en el body del archivo json y
     │	  res.status(201).json({						│	guardandolo en la constante "body".
     │      	  msg: 'post API - controlador',			│	
@@ -376,11 +376,11 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	│ class Server { 											│
 	│	  														│
 	│    middlewares() {										│
-	│       /* CORS */											│
+	│       // CORS     										│
 	│		this.app.use(cors());								│
-	│		/* Lectura y parseo del body */						│
+	│		// Lectura y parseo del body        				│
 	│		this.app.use(express.json());  		   				│
-	│    	/* Directorio publico */							│
+	│    	// Directorio publico 						        │
 	│		this.app.use( express.static('public'));			│
 	│	 }														│
 	│ }															│
@@ -434,3 +434,4 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	└────────────────────────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
+*/

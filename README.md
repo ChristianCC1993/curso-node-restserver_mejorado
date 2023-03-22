@@ -1,3 +1,3 @@
 # WebServer + RestServer
 
-Recuerden qeu debend e ejecutar ``` npm install ``` para recontruir los módulos de Node
+Recuerden que deben de ejecutar ``` npm install ``` para recontruir los módulos de Node

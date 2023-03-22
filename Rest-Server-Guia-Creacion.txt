@@ -12,13 +12,13 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 
 	┌───────────────────────────────────────┐
 	│ const express = require('express')	│
-	│ const app = express()				    │
-	│ 									    │
+	│ const app = express()			│
+	│ 					│
 	│ app.get('/', function (req, res) {	│
-	│   res.send('Hello World')			    │
-	│ })									│
-	│									    │
-	│ app.listen(3000)						│
+	│   res.send('Hello World')		│
+	│ })					│
+	│					│
+	│ app.listen(3000)			│
 	└───────────────────────────────────────┘
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -32,19 +32,19 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	Luego modificar el código orignal por algo asi:
 
 	┌───────────────────────────────────────────────────────────────────┐
-	│ import dotenv from 'dotenv';        								│
-	│ dotenv.config();													│
-	│ import express from 'express';									│
-	│																	│
-	│ const app = express()												│
-	│																	│
-	│ app.get('/', function (req, res) {								│
-	│  res.send('Hello World')											│
-	│ })																│
-	│																	│
-	│ app.listen( process.env.PORT, () => {								│
+	│ import dotenv from 'dotenv';        				    │
+	│ dotenv.config();						    │
+	│ import express from 'express';				    │
+	│								    │
+	│ const app = express()						    │
+	│								    │
+	│ app.get('/', function (req, res) {				    │
+	│  res.send('Hello World')					    │
+	│ })								    │
+	│								    │
+	│ app.listen( process.env.PORT, () => {				    │
 	│    console.log('Servidor corriendo en puerto', process.env.PORT); │
-	│ } );																│
+	│ } );								    │
 	└───────────────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -62,43 +62,43 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	"Server.js" quedaria algo asi:
 
 	┌───────────────────────────────────────────────────────────────────────┐
-	│ import express from 'express';									   	│
-	│																	   	│
-	│ class Server {													   	│
-	│																	   	│
-	│    constructor() {													│
-	│        this.app = express()											│
-	│        this.port = process.env.PORT;									│
-	│        this.routes();													│
-	│	 }																	│
-	│																		│
-	│    routes() {															│
-	│        this.app.get('/', (req, res) => {								│
-	│                res.send('Hello World')								│
-	│          });															│
-	│    }																	│
-	│																		│
-	│    listen() {															│
-	│        this.app.listen( this.port, () => {							│
+	│ import express from 'express';					│
+	│									│
+	│ class Server {							│
+	│									│
+	│    constructor() {							│
+	│        this.app = express()						│
+	│        this.port = process.env.PORT;					│
+	│        this.routes();							│
+	│	 }								│
+	│									│
+	│    routes() {								│
+	│        this.app.get('/', (req, res) => {				│
+	│                res.send('Hello World')				│
+	│          });								│
+	│    }									│
+	│									│
+	│    listen() {								│
+	│        this.app.listen( this.port, () => {				│
 	│            console.log('Servidor corriendo en puerto', this.port);	│
-	│        } );															│
-	│    }																	│
-	│																		│
-	│ }																		│
-	│																		│
-	│ export { Server }														│
+	│        } );								│
+	│    }									│
+	│									│
+	│ }									│
+	│									│
+	│ export { Server }							│
 	└───────────────────────────────────────────────────────────────────────┘
 
 	"app.js" quedaria algo asi:
 
 	┌───────────────────────────────────────────────────┐
-	│ import dotenv from 'dotenv'; 						│	
-	│ dotenv.config();       							│
-	│ import { Server } from './models/server.js';		│
-    │ 													│	
-	│ const server = new Server();						│
-    │ 													│
-	│ server.listen();									│
+	│ import dotenv from 'dotenv'; 			    │	
+	│ dotenv.config();       			    │
+	│ import { Server } from './models/server.js';	    │
+        │ 					            │	
+	│ const server = new Server();			    │
+        │ 						    │
+	│ server.listen();				    │
 	└───────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -110,42 +110,42 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 
 	"server.js"
 	┌───────────────────────────────────────────────────────────────────────┐
-	│ import express from 'express';									   	│
-	│																	   	│	"Middlewares"
-	│ class Server {													   	│	Son algo asi como funciones que siempre
-	│																	   	│	se ejecutaran cuando levantemos el 
-	│    constructor() {													│	servidor.
-	│        this.app = express()											│
-	│        this.port = process.env.PORT;									│
-	│																		│
-	│	     // Middlewares      											│
-	│        this.middlewares();											│	
-	│         // Rutas de mi aplicación										│
-	│        this.routes();													│
-	│	 }																	│
-	│																		│
-	│	 middlewares() {													│
-	│        // Directorio publico											│
-	│        this.app.use( express.static('public'));						│
-	│         																│
-	│    }																	│
-	│																		│
-	│    routes() {															│
-	│        this.app.get('/', (req, res) => {								│
-	│                res.send('Hello World')								│
-	│          });															│
-	│    }																	│
-	│																		│
-	│    listen() {															│
-	│        this.app.listen( this.port, () => {							│
+	│ import express from 'express';					│
+	│									│  "Middlewares"
+	│ class Server {							│  Son algo asi como funciones que siempre
+	│									│  se ejecutaran cuando levantemos el 
+	│    constructor() {							│  servidor.
+	│        this.app = express()						│
+	│        this.port = process.env.PORT;					│
+	│									│
+	│	     // Middlewares      					│
+	│        this.middlewares();						│	
+	│         // Rutas de mi aplicación					│
+	│        this.routes();							│
+	│	 }								│
+	│									│
+	│	 middlewares() {						│
+	│        // Directorio publico						│
+	│        this.app.use( express.static('public'));			│
+	│         								│
+	│    }									│
+	│									│
+	│    routes() {								│
+	│        this.app.get('/', (req, res) => {				│
+	│                res.send('Hello World')				│
+	│          });								│
+	│    }									│
+	│									│
+	│    listen() {								│
+	│        this.app.listen( this.port, () => {				│
 	│            console.log('Servidor corriendo en puerto', this.port);	│
-	│        } );															│
-	│    }																	│
-	│																		│
-	│ }																		│
-	│																		│
-	│ export { Server }														│
-	└───────────────────────────────────────────────────────────────────────┘
+	│        } );								│
+	│    }									│
+	│									│
+	│ }									│
+	│									│
+	│ export { Server }							│
+        └───────────────────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
@@ -154,36 +154,36 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 	en "routes" se colocaria lo siguiente:
 
 		"routes"
-	┌───────────────────────────────────────────────┐
-	│ routes() {									│
-	│												│
-    │ 	this.app.get('/api', (req, res) => {		│
-    │        res.json({								│
-    │            msg: 'get API'						│
-    │       });										│
-    │   });											│
-    │   this.app.put('/api', (req, res) => {		│
-    │        res.json({								│
-    │            msg: 'put API'						│
-    │        });									│
-    │    });										│
-    │    this.app.post('/api', (req, res) => {		│
-    │         res.json({							│
-    │             msg: 'post API'					│
-    │        });									│
-    │    });										│
-    │    this.app.delete('/api', (req, res) => {	│
-    │         res.json({							│
-    │             msg: 'delete API'					│
-    │        });									│
-    │    });										│
-    │    this.app.patch('/api', (req, res) => {		│
-    │         res.json({							│
-    │             msg: 'patch API'					│
-    │        });									│
-    │    });										│
-    │ }												│
-	└───────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────┐
+    │ routes() {				    │
+    │						    │
+    │ 	this.app.get('/api', (req, res) => {	    │
+    │        res.json({				    │
+    │            msg: 'get API'			    │
+    │       });					    │
+    │   });					    │
+    │   this.app.put('/api', (req, res) => {	    │
+    │        res.json({				    │
+    │            msg: 'put API'			    │
+    │        });				    │
+    │    });					    │
+    │    this.app.post('/api', (req, res) => {	    │
+    │         res.json({			    │
+    │             msg: 'post API'		    │
+    │        });				    │
+    │    });					    │
+    │    this.app.delete('/api', (req, res) => {    │
+    │         res.json({			    │
+    │             msg: 'delete API'		    │
+    │        });				    │
+    │    });					    │
+    │    this.app.patch('/api', (req, res) => {	    │
+    │         res.json({			    │
+    │             msg: 'patch API'		    │
+    │        });				    │
+    │    });					    │
+    │ }						    │
+    └───────────────────────────────────────────────┘
 
 
 // ------------------------------------------------------------------------------------------------------------------
@@ -200,15 +200,15 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 
 	"server.js"
 	┌───────────────────────────────────────────────────┐
-	│ import express from 'express';					│	Agregamos el import de 'cors' y
-	│ import cors from 'cors';							│	en la sección de 'middlewares'
-	│													│	agregamos 'this.app.use(cors())'
-	│	middlewares() {									│   y listo.
-	│   	// CORS 									│
-    │    	this.app.use(cors());    					│
-	│		// Directorio publico						│
-	│       this.app.use( express.static('public'));	│		
-	│	}												│
+	│ import express from 'express';		    │	Agregamos el import de 'cors' y
+	│ import cors from 'cors';			    │	en la sección de 'middlewares'
+	│						    │	agregamos 'this.app.use(cors())'
+	│	middlewares() {				    │   y listo.
+	│   	// CORS 				    │
+        │    	this.app.use(cors());    		    │
+	│		// Directorio publico		    │
+	│       this.app.use( express.static('public'));    │		
+	│	}					    │
 	└───────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------

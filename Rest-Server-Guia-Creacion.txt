@@ -1,159 +1,159 @@
 
 CREACION DE UN REST SERVER POR PASOS corriendo en express
 
-*	"npm init -y" para crear package.json
+*    "npm init -y" para crear package.json
 
-*	"npm i express dotenv" express es para crear el express server y dotenv es para configuarar variables de entorno
+*    "npm i express dotenv" express es para crear el express server y dotenv es para configuarar variables de entorno
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	ir a https://www.npmjs.com/package/express 
-	copiar codigó que aparece ahi:
+*   Ir a https://www.npmjs.com/package/express 
+    copiar codigó que aparece ahi:
 
-	┌───────────────────────────────────────┐
-	│ const express = require('express')	│
-	│ const app = express()			│
-	│ 					│
-	│ app.get('/', function (req, res) {	│
-	│   res.send('Hello World')		│
-	│ })					│
-	│					│
-	│ app.listen(3000)			│
-	└───────────────────────────────────────┘
+    ┌───────────────────────────────────────┐
+    │ const express = require('express')    │
+    │ const app = express()		    │
+    │ 					    │
+    │ app.get('/', function (req, res) {    │
+    │   res.send('Hello World')		    │
+    │ })				    │
+    │					    │
+    │ app.listen(3000)			    │
+    └───────────────────────────────────────┘
 // ------------------------------------------------------------------------------------------------------------------
 
-*	"npm i express dotenv" instalar dotenv
+*   "npm i express dotenv" instalar dotenv
 	
-	Agregar el puerto deseado desde el cual funcionara el rest server en un archivo llamado ".en", 
-	dentro colocar ej: "PORT=8080".
+     Agregar el puerto deseado desde el cual funcionara el rest server en un archivo llamado ".en", 
+     dentro colocar ej: "PORT=8080".
 
-	Luego dentro de "package.json" abajo de "main": "index.js" agregar "type": "module",
+     Luego dentro de "package.json" abajo de "main": "index.js" agregar "type": "module",
 
-	Luego modificar el código orignal por algo asi:
+     Luego modificar el código orignal por algo asi:
 
-	┌───────────────────────────────────────────────────────────────────┐
-	│ import dotenv from 'dotenv';        				    │
-	│ dotenv.config();						    │
-	│ import express from 'express';				    │
-	│								    │
-	│ const app = express()						    │
-	│								    │
-	│ app.get('/', function (req, res) {				    │
-	│  res.send('Hello World')					    │
-	│ })								    │
-	│								    │
-	│ app.listen( process.env.PORT, () => {				    │
-	│    console.log('Servidor corriendo en puerto', process.env.PORT); │
-	│ } );								    │
-	└───────────────────────────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────────────────────────┐
+    │ import dotenv from 'dotenv';        				│
+    │ dotenv.config();						        │
+    │ import express from 'express';				        │
+    │								        │
+    │ const app = express()						│
+    │								        │
+    │ app.get('/', function (req, res) {				│
+    │  res.send('Hello World')					        │
+    │ })								│
+    │								        │
+    │ app.listen( process.env.PORT, () => {				│
+    │    console.log('Servidor corriendo en puerto', process.env.PORT); │
+    │ } );								│
+    └───────────────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Crear archivo ".gitignore" dentro incluir 
-		.env
-		node_modules/
+*    Crear archivo ".gitignore" dentro incluir 
+	.env
+	node_modules/
 
-	Los cuales seran los archivos y carpetas ignoradas al momento de subir a github
+     Los cuales seran los archivos y carpetas ignoradas al momento de subir a github
 	
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Crear carpeta "models" y archivo "server.js". Esté ultimo contendrá todos lo que tenga que ver con el servidor. 
+*    Crear carpeta "models" y archivo "server.js". Esté ultimo contendrá todos lo que tenga que ver con el servidor. 
 	
-	"Server.js" quedaria algo asi:
+     "Server.js" quedaria algo asi:
 
-	┌───────────────────────────────────────────────────────────────────────┐
-	│ import express from 'express';					│
-	│									│
-	│ class Server {							│
-	│									│
-	│    constructor() {							│
-	│        this.app = express()						│
-	│        this.port = process.env.PORT;					│
-	│        this.routes();							│
-	│	 }								│
-	│									│
-	│    routes() {								│
-	│        this.app.get('/', (req, res) => {				│
-	│                res.send('Hello World')				│
-	│          });								│
-	│    }									│
-	│									│
-	│    listen() {								│
-	│        this.app.listen( this.port, () => {				│
-	│            console.log('Servidor corriendo en puerto', this.port);	│
-	│        } );								│
-	│    }									│
-	│									│
-	│ }									│
-	│									│
-	│ export { Server }							│
-	└───────────────────────────────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────────────────────────────┐
+    │ import express from 'express';					    │
+    │									    │
+    │ class Server {							    │
+    │									    │
+    │    constructor() {						    │
+    │        this.app = express()					    │
+    │        this.port = process.env.PORT;				    │
+    │        this.routes();						    │
+    │	 }								    │
+    │									    │
+    │    routes() {							    │
+    │        this.app.get('/', (req, res) => {				    │
+    │                res.send('Hello World')				    │
+    │          });							    │
+    │    }								    │
+    │									    │
+    │    listen() {							    │
+    │        this.app.listen( this.port, () => {			    │
+    │            console.log('Servidor corriendo en puerto', this.port);    │
+    │        } );							    │    
+    │    }								    │
+    │									    │
+    │ }									    │
+    │									    │
+    │ export { Server }							    │
+    └───────────────────────────────────────────────────────────────────────┘
 
-	"app.js" quedaria algo asi:
+     "app.js" quedaria algo asi:
 
-	┌───────────────────────────────────────────────────┐
-	│ import dotenv from 'dotenv'; 			    │	
-	│ dotenv.config();       			    │
-	│ import { Server } from './models/server.js';	    │
-        │ 					            │	
-	│ const server = new Server();			    │
-        │ 						    │
-	│ server.listen();				    │
-	└───────────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────────┐
+    │ import dotenv from 'dotenv'; 			│	
+    │ dotenv.config();       			        │
+    │ import { Server } from './models/server.js';	│
+    │ 					                │	
+    │ const server = new Server();			│
+    │ 						        │
+    │ server.listen();				        │
+    └───────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Para agregar un html habria que realizar lo siguiente:
+*    Para agregar un html habria que realizar lo siguiente:
 	
-	Crear carpeta "public" y un archivo "html" ej: "index.html". Dentro de esté presionar "! + tab" para que genere 
-	un esqueleto html. Luego agregarlo en "server.js" de la siguiente manera:
+     Crear carpeta "public" y un archivo "html" ej: "index.html". Dentro de esté presionar "! + tab" para que genere 
+     un esqueleto html. Luego agregarlo en "server.js" de la siguiente manera:
 
-	"server.js"
-	┌───────────────────────────────────────────────────────────────────────┐
-	│ import express from 'express';					│
-	│									│  "Middlewares"
-	│ class Server {							│  Son algo asi como funciones que siempre
-	│									│  se ejecutaran cuando levantemos el 
-	│    constructor() {							│  servidor.
-	│        this.app = express()						│
-	│        this.port = process.env.PORT;					│
-	│									│
-	│	     // Middlewares      					│
-	│        this.middlewares();						│	
-	│         // Rutas de mi aplicación					│
-	│        this.routes();							│
-	│	 }								│
-	│									│
-	│	 middlewares() {						│
-	│        // Directorio publico						│
-	│        this.app.use( express.static('public'));			│
-	│         								│
-	│    }									│
-	│									│
-	│    routes() {								│
-	│        this.app.get('/', (req, res) => {				│
-	│                res.send('Hello World')				│
-	│          });								│
-	│    }									│
-	│									│
-	│    listen() {								│
-	│        this.app.listen( this.port, () => {				│
-	│            console.log('Servidor corriendo en puerto', this.port);	│
-	│        } );								│
-	│    }									│
-	│									│
-	│ }									│
-	│									│
-	│ export { Server }							│
-        └───────────────────────────────────────────────────────────────────────┘
+     "server.js"
+    ┌───────────────────────────────────────────────────────────────────────┐
+    │ import express from 'express';					    │
+    │									    │  "Middlewares"
+    │ class Server {							    │  Son algo asi como funciones que siempre
+    │									    │  se ejecutaran cuando levantemos el 
+    │    constructor() {						    │  servidor.
+    │        this.app = express()					    │
+    │        this.port = process.env.PORT;				    │
+    │									    │
+    │	     // Middlewares      					    │
+    │        this.middlewares();					    │	
+    │         // Rutas de mi aplicación					    │
+    │        this.routes();						    │
+    │	 }								    │
+    │									    │
+    │	 middlewares() {						    │
+    │        // Directorio publico					    │
+    │        this.app.use( express.static('public'));			    │
+    │         								    │
+    │    }								    │
+    │									    │
+    │    routes() {							    │
+    │        this.app.get('/', (req, res) => {				    │
+    │                res.send('Hello World')				    │
+    │          });							    │
+    │    }								    │
+    │									    │
+    │    listen() {							    │
+    │        this.app.listen( this.port, () => {			    │
+    │            console.log('Servidor corriendo en puerto', this.port);    │
+    │        } );							    │
+    │    }								    │
+    │									    │
+    │ }									    │
+    │									    │
+    │ export { Server }							    │
+    └───────────────────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Para crear un rest API se haria lo siguiente:
+*    Para crear un rest API se haria lo siguiente:
 
-	en "routes" se colocaria lo siguiente:
+     en "routes" se colocaria lo siguiente:
 
-		"routes"
+     "routes"
     ┌───────────────────────────────────────────────┐
     │ routes() {				    │
     │						    │
@@ -188,455 +188,455 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Instalamos cors https://www.npmjs.com/package/cors
+*    Instalamos cors https://www.npmjs.com/package/cors
 
-	Permite que solo ciertas páginas web puedan acceder a las APIs, protegiendo el servidor de una manera 
-	relativamente superficial.
+     Permite que solo ciertas páginas web puedan acceder a las APIs, protegiendo el servidor de una manera 
+     relativamente superficial.
 
-	Cors permite agregar sitios a una lista blanca para tener acceso a el API y mas opciones, investigar
-	sobre ello.
+     Cors permite agregar sitios a una lista blanca para tener acceso a el API y mas opciones, investigar
+     sobre ello.
 
-	Para agregarlo al código actual:
+     Para agregarlo al código actual:
 
-	"server.js"
-	┌───────────────────────────────────────────────────┐
-	│ import express from 'express';		    │	Agregamos el import de 'cors' y
-	│ import cors from 'cors';			    │	en la sección de 'middlewares'
-	│						    │	agregamos 'this.app.use(cors())'
-	│	middlewares() {				    │   y listo.
-	│   	// CORS 				    │
-        │    	this.app.use(cors());    		    │
-	│		// Directorio publico		    │
-	│       this.app.use( express.static('public'));    │		
-	│	}					    │
-	└───────────────────────────────────────────────────┘
+     "server.js"
+    ┌───────────────────────────────────────────────────┐
+    │ import express from 'express';		        │  Agregamos el import de 'cors' y
+    │ import cors from 'cors';			        │  en la sección de 'middlewares'
+    │						        │  agregamos 'this.app.use(cors())'
+    │	middlewares() {				        │  y listo.
+    │   	// CORS 				│
+    │    	this.app.use(cors());    		│
+    │		// Directorio publico		        │
+    │       this.app.use( express.static('public'));    │		
+    │	}					        │
+    └───────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Para separar las rutas en un nuevo archivo se hace lo siguiente:
+*    Para separar las rutas en un nuevo archivo se hace lo siguiente:
 
-	Se crea carpera "routes", dentro archivo "usuarios.routes.js"
+     Se crea carpera "routes", dentro archivo "usuarios.routes.js"
+
+     "usuarios.routes.js"
+    ┌───────────────────────────────────────┐
+    │ import { Router } from 'express';	    │
+    │					    │
+    │ const router = Router();		    │  Se agrega el import de Router proveniente
+    │					    │  de express, luego se declara una constante
+    │ router.get('/', (req, res) => {	    │  router de Router() y se pasan los métodos
+    │ 	  res.json({			    │  al nuevo archivo con las modifiaciones
+    │         msg: 'get API'		    │  correspondientes usando en vez de
+    │	  });				    │  "this.app.get" / "router.get"
+    │ });				    │
+    │ router.put('/', (req, res) => {	    │
+    │ 	  res.json({			    │
+    │         msg: 'put API'		    │
+    │	  });				    │
+    │ });				    │
+    │ router.post('/', (req, res) => {	    │
+    │ 	  res.json({			    │
+    │         msg: 'post API'		    │
+    │	  });				    │
+    │ });				    │
+    │ router.delete('/', (req, res) => {    │
+    │ 	  res.json({			    │
+    │         msg: 'delete API'		    │
+    │	  });				    │
+    │ });				    │
+    │ router.patch('/', (req, res) => {	    │
+    │ 	  res.json({			    │
+    │         msg: 'patch API'		    │
+    │	  });				    │
+    │ });				    │
+    │					    │
+    │ export { router }			    │
+    └───────────────────────────────────────┘
+
+    "server.js"
+    ┌───────────────────────────────────────────────────────────┐
+    │ import express from 'express';			        │
+    │ import cors from 'cors';				        │  En "server.js" se realizan las modificaciones
+    │ import { router } from '../routes/usuarios.routes.js';    │  señaladas. 	
+    │							        │
+    │ class Server { 					        │  Se puede crear una constante, en este caso llamada
+    │	   						        │  "this.usuariosPath" donde se puede almacenar las 
+    │ 	constructor() {					        │  rutas para que sea mas facil de ver estas.
+    │	  	this.app = express()			        │    
+    │	  	this.port = process.env.PORT;		        │  Solo coloque parte del código, los segmentos que
+    │	  	this.usuariosPath = '/api/usuarios';	        │  no aparecen aqui se mantienen igual.
+    │	  	// Middlewares    			        │   
+    │	  	this.middlewares();			        │	
+    │	  	// Rutas de mi aplicación		        │
+    │	  	this.routes();				        │
+    │ 	}	  					        │
+    │	  						        │
+    │    routes() {						│
+    │        this.app.use('/api/usuarios', router);		│
+    │    }							│
+    │ }							        │
+    │							        │
+    │ export { Server }					        │
+    └───────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*    Se puede separar "usuarios.routes.js" para dejar los "res.json({	msg: ''});" en un archivo a parte, cosa que
+     quede de manera mas ordenada, lo cual se hace de la siguiente manera:
+
+     Se crea una carpeta llamada "controllers" dentro de la cual se crea archivo "usuarios.controllers.js"
+
+     "usuarios.controllers.js"
+    ┌───────────────────────────────────────────────────┐
+    │ import { response } from 'express';		│
+    │							│
+    │ const usuariosGet = (req, res = response) => {	│
+    │	  res.json({					│
+    │      	  msg: 'get API - controlador'		│
+    │	  });						│
+    │ }							│
+    │							│
+    │ const usuariosPut = (req, res = response) => {	│
+    │	  res.json({					│
+    │      	  msg: 'put API - controlador'		│
+    │	  });						│
+    │ }							│
+    │							│
+    │ const usuariosPost = (req, res = response) => {	│
+    │	  res.json({					│
+    │      	  msg: 'post API - controlador'		│
+    │	  });						│
+    │ }							│
+    │							│
+    │ const usuariosDelete = (req, res = response) => {	│
+    │	  res.json({					│
+    │      	  msg: 'delete API - controlador'	│
+    │	  });						│
+    │ }							│
+    │							│
+    │ const usuariosPatch = (req, res = response) => {	│
+    │	  res.json({					│
+    │      	  msg: 'patch API - controlador'	│
+    │	  });						│
+    │ }							│
+    │							│
+    │							│
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	│
+    │		*/  usuariosDelete, usuariosPatch }	│
+    │							│
+    └───────────────────────────────────────────────────┘
 
 	"usuarios.routes.js"
-	┌───────────────────────────────────────┐
-	│ import { Router } from 'express';		│
-	│										│
-	│ const router = Router();				│	Se agrega el import de Router proveniente
-	│										│   de express, luego se declara una constante
-	│ router.get('/', (req, res) => {		│   router de Router() y se pasan los métodos
-	│ 	  res.json({						│	al nuevo archivo con las modifiaciones
-	│         msg: 'get API'				│	correspondientes usando en vez de
-	│	  });								│	"this.app.get" / "router.get"
-	│ });									│
-	│ router.put('/', (req, res) => {		│
-	│ 	  res.json({						│
-	│         msg: 'put API'				│
-	│	  });								│
-	│ });									│
-	│ router.post('/', (req, res) => {		│
-	│ 	  res.json({						│
-	│         msg: 'post API'				│
-	│	  });								│
-	│ });									│
-	│ router.delete('/', (req, res) => {	│
-	│ 	  res.json({						│
-	│         msg: 'delete API'				│
-	│	  });								│
-	│ });									│
-	│ router.patch('/', (req, res) => {		│
-	│ 	  res.json({						│
-	│         msg: 'patch API'				│
-	│	  });								│
-	│ });									│
-	│										│
-	│ export { router }						│
-	└───────────────────────────────────────┘
-
-	"server.js"
-	┌───────────────────────────────────────────────────────────┐
-	│ import express from 'express';							│
-	│ import cors from 'cors';									│	En "server.js" se realizan las modificaciones
-	│ import { router } from '../routes/usuarios.routes.js';	│	señaladas. 	
-	│															│
-	│ class Server { 											│	Se puede crear una constante, en este caso llamada
-	│	   														│   "this.usuariosPath" donde se puede almacenar las 
-	│ 	constructor() {											│	rutas para que sea mas facil de ver estas.
-	│	  	this.app = express()								│    
-	│	  	this.port = process.env.PORT;						│ 	Solo coloque parte del código, los segmentos que
-	│	  	this.usuariosPath = '/api/usuarios';				│   no aparecen aqui se mantienen igual.
-	│	  	// Middlewares    									│   
-	│	  	this.middlewares();									│	
-	│	  	// Rutas de mi aplicación							│
-	│	  	this.routes();										│
-	│ 	}	  													│
-	│	  														│
-	│    routes() {												│
-	│        this.app.use('/api/usuarios', router);				│
-	│    }														│
-	│ }															│
-	│															│
-	│ export { Server }											│
-	└───────────────────────────────────────────────────────────┘
+   ┌───────────────────────────────────────────────────────────────────────────────────┐
+   │ import { Router } from 'express';						       │
+   │ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │							
+   │		   from '../controllers/usuarios.controllers.js';		       │  "usuarios.routes.js" quedaria
+   │		   								       │  de la siguiente manera, 
+   │ const router = Router();							       │  teniendo solamente los 
+   │       									       │  llamados a las funciones 
+   │ router.get('/', usuariosGet );						       │  guardadas en 
+   │       									       │  "usuarios.controllers.js"
+   │ router.put('/', usuariosPut );						       │
+   │										       │
+   │ router.post('/', usuariosPost );						       │
+   │										       │
+   │ router.delete('/', usuariosDelete );					       │
+   │										       │
+   │ router.patch('/', usuariosPatch );						       │
+   │ 										       │
+   │ export { router }								       │
+   └───────────────────────────────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Se puede separar "usuarios.routes.js" para dejar los "res.json({	msg: ''});" en un archivo a parte, cosa que
-    quede de manera mas ordenada, lo cual se hace de la siguiente manera:
-
-    Se crea una carpeta llamada "controllers" dentro de la cual se crea archivo "usuarios.controllers.js"
+*    Para Capturar datos provenientes de un Json mediante una consulta post hay que realizar
+     las siguientes modificaciones:
 
     "usuarios.controllers.js"
-	┌───────────────────────────────────────────────────┐
-	│ import { response } from 'express';				│
-	│													│
-	│ const usuariosGet = (req, res = response) => {	│
-    │	  res.json({									│
-    │      	  msg: 'get API - controlador'				│
-    │	  });											│
-	│ }													│
-	│													│
-	│ const usuariosPut = (req, res = response) => {	│
-    │	  res.json({									│
-    │      	  msg: 'put API - controlador'				│
-    │	  });											│
-	│ }													│
-	│													│
-	│ const usuariosPost = (req, res = response) => {	│
-    │	  res.json({									│
-    │      	  msg: 'post API - controlador'				│
-    │	  });											│
-	│ }													│
-	│													│
-	│ const usuariosDelete = (req, res = response) => {	│
-    │	  res.json({									│
-    │      	  msg: 'delete API - controlador'			│
-    │	  });											│
-	│ }													│
-	│													│
-	│ const usuariosPatch = (req, res = response) => {	│
-    │	  res.json({									│
-    │      	  msg: 'patch API - controlador'			│
-    │	  });											│
-	│ }													│
-	│													│
-	│													│
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	│
-    │		*/  usuariosDelete, usuariosPatch }			│
-    │													│
-	└───────────────────────────────────────────────────┘
-
-	"usuarios.routes.js"
-	┌───────────────────────────────────────────────────────────────────────────────────┐
-	│ import { Router } from 'express';													│
-	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │							
-    │		   from '../controllers/usuarios.controllers.js';							│	"usuarios.routes.js" quedaria
-    │		   																			│	de la siguiente manera, 
-    │ const router = Router();															│	teniendo solamente los 
-    │       																			│	llamados a las funciones 
-    │ router.get('/', usuariosGet );													│	guardadas en 
-    │       																			│	"usuarios.controllers.js"
-    │ router.put('/', usuariosPut );													│
-    │																					│
-    │ router.post('/', usuariosPost );													│
-    │																					│
-    │ router.delete('/', usuariosDelete );												│
-    │																					│
-    │ router.patch('/', usuariosPatch );												│
-    │ 																					│
-    │ export { router }																	│
-	└───────────────────────────────────────────────────────────────────────────────────┘
-
-// ------------------------------------------------------------------------------------------------------------------
-
-*	Para Capturar datos provenientes de un Json mediante una consulta post hay que realizar
-	las siguientes modificaciones:
-
-    "usuarios.controllers.js"
-	┌───────────────────────────────────────────────────┐
-	│ import { response } from 'express';				│
-	│													│	Solo soloque el "UsuariosPost" ya que es el unico
-	│  const usuariosPost = (req, res = response) => {	│	modificado en está parte.
-	│													│	
-    │  	  /* const body = req.body; */             		│	Al colocar "const body = req.body;" estoy capturando 
-    │ 	  const { nombre, edad }= req.body;   			│	todo lo que venga en el body del archivo json y
-    │	  res.status(201).json({						│	guardandolo en la constante "body".
-    │      	  msg: 'post API - controlador',			│	
-    │    	  nombre,									│	Ahora al colocar "const { nombre, edad }= req.body;"
-    │    	  edad										│	solo estoy extrayendo de el archivo json los campos
-    │ 	  });											│	seleccionados gracias a la desestructuración de argumentos
-	│  };												│	filtrando de esa manera todo lo demas
-	└───────────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────────┐
+    │ import { response } from 'express';		│
+    │							│  Solo soloque el "UsuariosPost" ya que es el unico
+    │  const usuariosPost = (req, res = response) => {	│  modificado en está parte.
+    │							│	
+    │  	  /* const body = req.body; */             	│  Al colocar "const body = req.body;" estoy capturando 
+    │ 	  const { nombre, edad }= req.body;   		│  todo lo que venga en el body del archivo json y
+    │	  res.status(201).json({			│  guardandolo en la constante "body".
+    │      	  msg: 'post API - controlador',	│	
+    │    	  nombre,				│  Ahora al colocar "const { nombre, edad }= req.body;"
+    │    	  edad					│  solo estoy extrayendo de el archivo json los campos
+    │ 	  });						│  seleccionados gracias a la desestructuración de argumentos
+    │  };						│  filtrando de esa manera todo lo demas
+    └───────────────────────────────────────────────────┘
 
 	"server.js"
-	┌───────────────────────────────────────────────────────────┐
-	│ import express from 'express';							│	Se coloca "this.app.use(express.json());"
-	│ import cors from 'cors';									│	en middlewareas para que la información 	
-	│ import { router } from '../routes/usuarios.routes.js';	│	que viene entrando se intente serializar 
-	│															│	como un json.
-	│ class Server { 											│
-	│	  														│
-	│    middlewares() {										│
-	│       /* CORS */											│
-	│		this.app.use(cors());								│
-	│		/* Lectura y parseo del body */						│
-	│		this.app.use(express.json());  		   				│
-	│    	/* Directorio publico */							│
-	│		this.app.use( express.static('public'));			│
-	│	 }														│
-	│ }															│
-	│															│
-	│ export { Server }											│
-	└───────────────────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────────────────┐
+    │ import express from 'express';				│  Se coloca "this.app.use(express.json());"
+    │ import cors from 'cors';					│  en middlewareas para que la información 	
+    │ import { router } from '../routes/usuarios.routes.js';	│  que viene entrando se intente serializar 
+    │								│  como un json.
+    │ class Server { 						│
+    │	  							│
+    │    middlewares() {					│
+    │       /* CORS */						│
+    │		this.app.use(cors());				│
+    │		/* Lectura y parseo del body */			│
+    │		this.app.use(express.json());  		   	│
+    │    	/* Directorio publico */			│
+    │		this.app.use( express.static('public'));	│
+    │	 }							│
+    │ }								│
+    │								│
+    │ export { Server }						│
+    └───────────────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	En el caso del "put", para que tenga que ser enviado un parametro al momento de ejecutarse el parámetro
-	y que esté sea recibido de manera dinámica se realizaria de la siguiente manera:
+*    En el caso del "put", para que tenga que ser enviado un parametro al momento de ejecutarse el parámetro
+     y que esté sea recibido de manera dinámica se realizaria de la siguiente manera:
 
-	    "usuarios.controllers.js"
-	┌───────────────────────────────────────────────────┐
-	│ import { response } from 'express';				│
-	│													│
-	│ const usuariosPut = (req, res = response) => {	│
-	│	  const {id} = req.params;						│
-	│	  res.json({									│
-	│	      msg: 'put API - controlador',				│
-	│	      id 										│
-	│	  });											│
-	│ };												│
-	└───────────────────────────────────────────────────┘
+     "usuarios.controllers.js"
+    ┌───────────────────────────────────────────────────┐
+    │ import { response } from 'express';		│
+    │							│
+    │ const usuariosPut = (req, res = response) => {	│
+    │	  const {id} = req.params;			│
+    │	  res.json({					│
+    │	      msg: 'put API - controlador',		│
+    │	      id 					│
+    │	  });						│
+    │ };						│
+    └───────────────────────────────────────────────────┘
 
-		"usuarios.routes.js"
-	┌───────────────────────────────────┐
-    │ router.put('/:id', usuariosPut );	│	Colocando '/:id?' Indicaria que el envio del id dentro de la consulta
-	└───────────────────────────────────┘	seria opcional, pero al estar '/:id' si o si tiene que estar.
-
-// ------------------------------------------------------------------------------------------------------------------
-
-*	Ahora si recibiera la siguiente consulta en un "Get"
-	http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&limit=10
-
-	Al estos estar con '?' indicamos que son valores opcionales
-
-	    "usuarios.controllers.js"
-	┌────────────────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';										 │	Aqui en "nombre = 'No name'"
-	│																			 │	indicamos gracias a la 
-	│ const usuariosGet = (req, res = response) => {							 │  desestructuración de argumentos 
-	│	  const query = req.query;												 │  que si el campo "nombre" viene
-	│	  const { q, nombre = 'No name', apikey,page = '1', limit } = req.query; │	vacio indique que esté es igual
-	│	  																		 │	a "no name". caso que se repite	
-	│	  res.json({															 │	con "page = '1'"
-	│	      msg: 'put API - controlador',										 │
-	│	      q, nombre, apikey, page, limit									 │
-	│	  });																	 │
-	│ };																		 │
-	└────────────────────────────────────────────────────────────────────────────┘
+     "usuarios.routes.js"
+    ┌───────────────────────────────────┐
+    │ router.put('/:id', usuariosPut );	│  Colocando '/:id?' Indicaria que el envio del id dentro de la consulta
+    └───────────────────────────────────┘  seria opcional, pero al estar '/:id' si o si tiene que estar.
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Conectar a una Base de Datos MondoDB
+*    Ahora si recibiera la siguiente consulta en un "Get"
+     http://localhost:8080/api/usuarios?q=hola&apikey=1234567890&limit=10
+
+     Al estos estar con '?' indicamos que son valores opcionales
+
+     "usuarios.controllers.js"
+    ┌────────────────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';					 │  Aqui en "nombre = 'No name'"
+    │										 │  indicamos gracias a la 
+    │ const usuariosGet = (req, res = response) => {				 │  desestructuración de argumentos 
+    │	  const query = req.query;						 │  que si el campo "nombre" viene
+    │	  const { q, nombre = 'No name', apikey,page = '1', limit } = req.query; │  vacio indique que esté es igual
+    │	  									 │  a "no name". caso que se repite	
+    │	  res.json({								 │  con "page = '1'"
+    │	      msg: 'put API - controlador',					 │
+    │	      q, nombre, apikey, page, limit					 │
+    │	  });									 │
+    │ };									 │
+    └────────────────────────────────────────────────────────────────────────────┘
+
+// ------------------------------------------------------------------------------------------------------------------
+
+*    Conectar a una Base de Datos MondoDB
 	
-	https://cloud.mongodb.com/v2/640cf03f7918db1fef0090af#/clusters
+     https://cloud.mongodb.com/v2/640cf03f7918db1fef0090af#/clusters
 
-	Registrarse, en pestaña "Database" seleccionar "connect/ 'Connect using MongoDB Compass'", instalar
-	"MongoDB Compass".
+     Registrarse, en pestaña "Database" seleccionar "connect/ 'Connect using MongoDB Compass'", instalar
+     "MongoDB Compass".
 
-	En la página de "mongodb" ir a database Access. "Add New Database User" y copiar el UserName/Password
-	que seleccionemos.
+     En la página de "mongodb" ir a database Access. "Add New Database User" y copiar el UserName/Password
+     que seleccionemos.
 
-	Conector de ejemplo: mongodb+srv://<username>:<password>@cluster0.uaqh89x.mongodb.net/test
+     Conector de ejemplo: mongodb+srv://<username>:<password>@cluster0.uaqh89x.mongodb.net/test
 
-	<username> lo cambiamos por el userName que guardamos y lo mismo con <password>
+     <username> lo cambiamos por el userName que guardamos y lo mismo con <password>
 
-	Editar ".env"
+     Editar ".env"
 
-	┌───────────────────────────────────────────────────────────────────────────────────────────────┐
-	│ PORT=8080				                                                                        │
-	│ MONGODB_CNN=mongodb+srv://user_node_cafe:tg1252HlrktF6Ctc@cluster0.uaqh89x.mongodb.net/cafedb	│												│
-	│                                                                                               │
-	└───────────────────────────────────────────────────────────────────────────────────────────────┘
+    ┌───────────────────────────────────────────────────────────────────────────────────────────────┐
+    │ PORT=8080				                                                            │
+    │ MONGODB_CNN=mongodb+srv://user_node_cafe:tg1252HlrktF6Ctc@cluster0.uaqh89x.mongodb.net/cafedb │												│
+    │                                                                                               │
+    └───────────────────────────────────────────────────────────────────────────────────────────────┘
 
-	instalar mongoose: "npm install mongoose" https://mongoosejs.com/docs/index.html
+    Instalar mongoose: "npm install mongoose" https://mongoosejs.com/docs/index.html
+    Ahora en Node crear carpeta "database" y archivo "config.js".
 
-	Ahora en Node crear carpeta "database" y archivo "config.js".
-		"config.js"
-	┌───────────────────────────────────────────────────────────────────────┐
-	│ 	import { mongoose } from 'mongoose';				                │
-	│													    		        │
-	│	const dbConnection = async() => {			    		            │
-	│			                                 		                    │
-	│    try {                                                              │
-	│        await mongoose.connect( process.env.MONGODB_CNN, {             │
-	│            useNewUrlParser: true,                                     │
-	│            useUnifiedTopology: true,                                  │
-	│        } );                                                           │
-	│                                                                       │
-	│        console.log('Base de datos online');                           │
+    "config.js"
+    ┌───────────────────────────────────────────────────────────────────────┐
+    │ 	import { mongoose } from 'mongoose';				    │
+    │									    │
+    │	const dbConnection = async() => {			    	    │
+    │			                                 		    │
+    │    try {                                                              │
+    │        await mongoose.connect( process.env.MONGODB_CNN, {             │
+    │            useNewUrlParser: true,                                     │
+    │            useUnifiedTopology: true,                                  │
+    │        } );                                                           │
     │                                                                       │
-	│    } catch (error) {                                                  │
-	│        console.log(error);                                            │
-	│        throw new Error('Error a la hora de iniciar la base de datos') │
-	│    }                                                                  │
+    │        console.log('Base de datos online');                           │
     │                                                                       │
-	│	}                                                                   │
+    │    } catch (error) {                                                  │
+    │        console.log(error);                                            │
+    │        throw new Error('Error a la hora de iniciar la base de datos') │
+    │    }                                                                  │
     │                                                                       │
-	│	export { dbConnection }                                             │
-	└───────────────────────────────────────────────────────────────────────┘
+    │	}                                                                   │
+    │                                                                       │
+    │	export { dbConnection }                                             │
+    └───────────────────────────────────────────────────────────────────────┘
 
-		"server.js"
-	┌───────────────────────────────────────────────────┐
-	│ 	class Server {                                  │
+    "server.js"
+    ┌───────────────────────────────────────────────────┐
+    │ 	class Server {                                  │
     │                                                   │
-	│	    constructor() {                             │	En los contructores agrego "this.conectarDB();"
-	│	        this.app = express()                    │	y esta llama al "dbConnection" de "config.js"
-	│	        this.port = process.env.PORT;           │ 
-	│	        this.usuariosPath = '/api/usuarios';    │
+    │	    constructor() {                             │  En los contructores agrego "this.conectarDB();"
+    │	        this.app = express()                    │  y esta llama al "dbConnection" de "config.js"
+    │	        this.port = process.env.PORT;           │ 
+    │	        this.usuariosPath = '/api/usuarios';    │
     │                                                   │
-	│	        // Conectar a base de datos             │
-	│	        this.conectarDB();                      │
+    │	        // Conectar a base de datos             │
+    │	        this.conectarDB();                      │
     │                                                   │
-	│	        // Middlewares                          │
-	│	        this.middlewares();                     │
-	│	        // Rutas de mi aplicación               │
-	│	        this.routes();                          │
-	│	    }                                           │
-	│                                                   │
-	│	    async conectarDB() {                        │
-	│	        await dbConnection();                   │
-	│	    }                                           │
-	│	}									            │
-	└───────────────────────────────────────────────────┘
+    │	        // Middlewares                          │
+    │	        this.middlewares();                     │
+    │	        // Rutas de mi aplicación               │
+    │	        this.routes();                          │
+    │	    }                                           │
+    │                                                   │
+    │	    async conectarDB() {                        │
+    │	        await dbConnection();                   │
+    │	    }                                           │
+    │	}					        │
+    └───────────────────────────────────────────────────┘
 
 // ------------------------------------------------------------------------------------------------------------------
 
-*	Crear modelo de Usuario. Crear dentro de carpeta "models" archivo "usuario.js"
+*    Crear modelo de Usuario. Crear dentro de carpeta "models" archivo "usuario.js"
 
-	"usuario.js"
+     "usuario.js"
 
-	┌───────────────────────────────────────────────────────────────────┐
-	│ 	import { Schema, model } from 'mongoose';				        │         
-	│	                                                                │
-	│	const UsuarioSchema = Schema({                                  │
+    ┌───────────────────────────────────────────────────────────────────┐
+    │ 	import { Schema, model } from 'mongoose';			│         
+    │	                                                                │
+    │	const UsuarioSchema = Schema({                                  │
     │                                                                   │
-	│	        nombre: {                                               │
-	│	            type: String,                                       │
-	│	            required: [true, 'El nombre es obligatorio']        │
-	│	        },                                                      │
-	│	        correo: {                                               │
-	│	            type: String,                                       │
-	│	            required: [true, 'El correo es obnligatorio'],      │
-	│	            unique: true                                        │
-	│	        },                                                      │
-	│	        password: {                                             │
-	│	            type: String,                                       │
-	│	            required: [true, 'La contraseña es obnligatorio']   │
-	│	        },                                                      │
-	│	        img: {                                                  │
-	│	            type: String                                        │
-	│	        },                                                      │
-	│	        rol: {                                                  │
-	│	            type: String,                                       │
-	│	            required: true,                                     │
-	│	            emun: [ 'ADMIN_ROLE', 'USER_ROLE' ]                 │
-	│	        },                                                      │
-	│	        estado: {                                               │
-	│	            type: Boolean,                                      │
-	│	            default: true                                       │
-	│	        },                                                      │
-	│	        google: {                                               │
-	│               type: Boolean,                                      │
-	│	            default: false                                      │
-	│	        },                                                      │
-	│	});                                                             │
+    │	        nombre: {                                               │
+    │	            type: String,                                       │
+    │	            required: [true, 'El nombre es obligatorio']        │
+    │	        },                                                      │
+    │	        correo: {                                               │
+    │	            type: String,                                       │
+    │	            required: [true, 'El correo es obnligatorio'],      │
+    │	            unique: true                                        │
+    │	        },                                                      │
+    │	        password: {                                             │
+    │	            type: String,                                       │
+    │	            required: [true, 'La contraseña es obnligatorio']   │
+    │	        },                                                      │
+    │	        img: {                                                  │
+    │	            type: String                                        │
+    │	        },                                                      │
+    │	        rol: {                                                  │
+    │	            type: String,                                       │
+    │	            required: true,                                     │
+    │	            emun: [ 'ADMIN_ROLE', 'USER_ROLE' ]                 │
+    │	        },                                                      │
+    │	        estado: {                                               │
+    │	            type: Boolean,                                      │
+    │	            default: true                                       │
+    │	        },                                                      │
+    │	        google: {                                               │
+    │               type: Boolean,                                      │
+    │	            default: false                                      │
+    │	        },                                                      │
+    │	});                                                             │
     │                                                                   │
-	│	UsuarioSchema.methods.toJSON = function() {                     │	Esté segmento lo que hace es que al
-	│    	const { __v, password, ...user } = this.toObject();         │   retornar usuario filtra los campos del 
-	│    	return user;                                                │   esquema a devolver extrayendo de esté
-	│	}                                                               │   los campos de "__v, password" y guardando
-    │                                                                   │   todo lo demas en "...user" y devolviendo
-	│	export const Usuario = model('Usuario', UsuarioSchema);         │   esté.
-	└───────────────────────────────────────────────────────────────────┘
+    │	UsuarioSchema.methods.toJSON = function() {                     │  Esté segmento lo que hace es que al
+    │    	const { __v, password, ...user } = this.toObject();     │  retornar usuario filtra los campos del 
+    │    	return user;                                            │  esquema a devolver extrayendo de esté
+    │	}                                                               │  los campos de "__v, password" y guardando
+    │                                                                   │  todo lo demas en "...user" y devolviendo
+    │	export const Usuario = model('Usuario', UsuarioSchema);         │  esté.
+    └───────────────────────────────────────────────────────────────────┘
 
     "usuarios.controllers.js"
-	┌─────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				      │
-	│ import { Usuario } from '../models/usuario.js';         │		Se importa el modelo "Usuario".
-	│                                                         │
-	│ const usuariosPost = async (req, res = response) => {   │  
+    ┌─────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';	              │
+    │ import { Usuario } from '../models/usuario.js';         │  Se importa el modelo "Usuario".
     │                                                         │
-	│    const body = req.body;                               │		Se caputa el body del POST en el API
+    │ const usuariosPost = async (req, res = response) => {   │  
     │                                                         │
-	│	 const usuario = new Usuario( body );                 │		Se guarda el body en un objeto creado
-    │                                                         │       usando el modelo "Usuario"
-	│	 await usuario.save();                                │  
-    │                                                         │		Se indica que se guarde en la BD.
-	│	 res.status(201).json({                               │
-	│	     msg: 'post API - controlador',                   │
-	│	     usuario                                          │		Retorna el usuario
-	│	 });                                                  │    
-	│ };											          │
-	│													      │
-	│													      │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	      │
-    │		*/  usuariosDelete, usuariosPatch }			      │
-    │													      │
-	└─────────────────────────────────────────────────────────┘
+    │    const body = req.body;                               │	 Se caputa el body del POST en el API
+    │                                                         │
+    │	 const usuario = new Usuario( body );                 │	 Se guarda el body en un objeto creado
+    │                                                         │  usando el modelo "Usuario"
+    │	 await usuario.save();                                │  
+    │                                                         │	 Se indica que se guarde en la BD.
+    │	 res.status(201).json({                               │
+    │	     msg: 'post API - controlador',                   │
+    │	     usuario                                          │	 Retorna el usuario
+    │	 });                                                  │    
+    │ };						      │
+    │							      │
+    │							      │
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	      │
+    │		*/  usuariosDelete, usuariosPatch }	      │
+    │							      │
+    └─────────────────────────────────────────────────────────┘
 
 // ----------------------------------------------------------------------------------------------------------------
 
-*	Para encriptar la contraseña seguir los siguientes pasos:
+*    Para encriptar la contraseña seguir los siguientes pasos:
 
-	Instalar "npm i bcrypt" de https://www.npmjs.com/package/bcrypt
-
-	    "usuarios.controllers.js"
-	┌──────────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				                   │
-	│ import { Usuario } from '../models/usuario.js';                      │
-	│ import bcryptcj from 'bcryptjs';                                     │	Se importa bcryptjs
-	│                                                                      │
-	│ const usuariosPost = async (req, res = response) => {                │
+     Instalar "npm i bcrypt" de https://www.npmjs.com/package/bcrypt
+  
+     "usuarios.controllers.js"
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';				   │
+    │ import { Usuario } from '../models/usuario.js';                      │
+    │ import bcryptcj from 'bcryptjs';                                     │  Se importa bcryptjs
     │                                                                      │
-    │    /* const { google, ...resto } = req.body; */                      │	Se puede extraer un campo y el resto 
-    │                                                                      │    guardarlo en otro campo
-	│	 const { nombre, correo, password, rol } = req.body                │	Se extraen los compos necesarios del 
-    │                                                                      │    body solamente
-	│	 const usuario = new Usuario( { nombre, correo, password, rol} );  │    Se crea una nueva instancia de usuario
-    │                                                                      │    con los datos extraidos del body
-	│    // Verificar si el correo existe                                  │
+    │ const usuariosPost = async (req, res = response) => {                │
     │                                                                      │
-	│    // Encriptar la contraseña                                        │
-	│    const salt = bcryptcj.genSaltSync();                              │    Se genera una encriptación
-	│    usuario.password = bcryptcj.hashSync( password, salt );           │	Se aplica la encriptación a la clave
+    │    /* const { google, ...resto } = req.body; */                      │  Se puede extraer un campo y el resto 
+    │                                                                      │  guardarlo en otro campo
+    │	 const { nombre, correo, password, rol } = req.body                │  Se extraen los compos necesarios del 
+    │                                                                      │  body solamente
+    │	 const usuario = new Usuario( { nombre, correo, password, rol} );  │  Se crea una nueva instancia de usuario
+    │                                                                      │  con los datos extraidos del body
+    │    // Verificar si el correo existe                                  │
+    │                                                                      │
+    │    // Encriptar la contraseña                                        │
+    │    const salt = bcryptcj.genSaltSync();                              │  Se genera una encriptación
+    │    usuario.password = bcryptcj.hashSync( password, salt );           │  Se aplica la encriptación a la clave
     │                                                                      │	
-	│    /* Guardar en BD */                                               │	En "genSaltSync()" se puede seleccionar
-	│	 await usuario.save();                                             │    la dificultad de encriptación, por
-    │                                                                      │    defecto esta viene en 10, pero se puede
-	│	 res.status(201).json({                                            │    aumentar "genSaltSync(100)" por ej, está
-	│	     msg: 'post API - controlador',                                │    sera más dificil de desencriptar pero a
-	│	     usuario                                                       │    su véz su velocidad de procesamiento será
-	│	 });                                                               │    increiblemente mayor.
-	│ };											                       │
-	│													                   │
-	│													                   │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	                   │
-    │		*/  usuariosDelete, usuariosPatch }			                   │
-    │													                   │
-	└──────────────────────────────────────────────────────────────────────┘
+    │    /* Guardar en BD */                                               │  En "genSaltSync()" se puede seleccionar
+    │	 await usuario.save();                                             │  la dificultad de encriptación, por
+    │                                                                      │  defecto esta viene en 10, pero se puede
+    │	 res.status(201).json({                                            │  aumentar "genSaltSync(100)" por ej, está
+    │	     msg: 'post API - controlador',                                │  sera más dificil de desencriptar pero a
+    │	     usuario                                                       │  su véz su velocidad de procesamiento será
+    │	 });                                                               │  increiblemente mayor.
+    │ };								   │
+    │									   │
+    │									   │
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	                   │
+    │		*/  usuariosDelete, usuariosPatch }			   │
+    │									   │
+    └──────────────────────────────────────────────────────────────────────┘
 
 // ----------------------------------------------------------------------------------------------------------------
 
-* 	Para validar errores:
+*    Para validar errores:
 
-	Instalar "npm i express-validator" de https://www.npmjs.com/package/express-validator
+     Instalar "npm i express-validator" de https://www.npmjs.com/package/express-validator
 
-	Creamos una carpeta llamada "middlewares" y un archivo llamado "validar-campo.js"
-
-		"validar-campo.js"
-	┌────────────────────────────────────────────────────────┐
-	│ import { validationResult } from "express-validator";  │
+     Creamos una carpeta llamada "middlewares" y un archivo llamado "validar-campo.js"
+ 
+     "validar-campo.js"
+    ┌────────────────────────────────────────────────────────┐
+    │ import { validationResult } from "express-validator";  │
     │                                                        │
-	│ const validarCampos = ( req, res, next ) => {          │ 
+    │ const validarCampos = ( req, res, next ) => {          │ 
     │                                                        │
     │    const errors = validationResult( req );             │  Se captura el o los error(es) en "errors". Si esté no
     │    if ( !errors.isEmpty() ){                           │  es vacio entonces regresa el o los error(es) y 
@@ -646,106 +646,106 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
     │    next();                                             │  Hace que siga adelante con el siguiente middleware de
     │ }                                                      │  haber uno al terminar con esté.
     │                                                        │
-    │ export { validarCampos }					             │
-	└────────────────────────────────────────────────────────┘
+    │ export { validarCampos }				     │
+    └────────────────────────────────────────────────────────┘
 
 
-		"usuarios.routes.js"
-	┌─────────────────────────────────────────────────────────────────────────────────────────┐
-	│ import { Router } from 'express';													      │
-	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }        │
-    │		   from '../controllers/usuarios.controllers.js';							      │
+     "usuarios.routes.js"
+    ┌─────────────────────────────────────────────────────────────────────────────────────────┐
+    │ import { Router } from 'express';							      │
+    │ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }        │
+    │		   from '../controllers/usuarios.controllers.js';			      │
     │ import { check } from 'express-validator';                                              │
     │ import { validarCampos } from '../middlewares/validar-campos.js';                       │  Importación del 
-    │                      																      │  middleware
-    │ const router = Router();															      │
-    │       																			      │
+    │                      								      │  middleware
+    │ const router = Router();								      │
+    │       										      │
     │ router.post('/', [                                                                      │
     │  	    check('nombre', 'El nombre es obligatorio').not().isEmpty(),                      │
-   	│       check('password', 'El password debe ser mayor a 6 letras').isLength({ min: 6 }),  │
+    │       check('password', 'El password debe ser mayor a 6 letras').isLength({ min: 6 }),  │
     │       check('correo', 'El correo no es válido').isEmail(),                              │
     │       check('rol', 'No es un rol válido').isIn(['USER_ROLE','ADMIN_ROLE']),             │
     │       validarCampos                                                                     │  Aqui se llama el 
-	│ ] , usuariosPost ); 												                      │  middleware creado
-    │ 																					      │
-    │ export { router }																	      │
-	└─────────────────────────────────────────────────────────────────────────────────────────┘
+    │ ] , usuariosPost ); 							              │  middleware creado
+    │ 											      │
+    │ export { router }									      │
+    └─────────────────────────────────────────────────────────────────────────────────────────┘
 
-	Editamos el: "router.post('/:id', usuariosPut );" a "router.post('/', [ ] , usuariosPost );"
-	donde el segundo argumento pasa a ser un middleware y el tercero el controlados. De solo existir
-	2 argumentos automáticamente el segundo argumento es reconocido como el controlador.
+    Editamos el: "router.post('/:id', usuariosPut );" a "router.post('/', [ ] , usuariosPost );"
+    donde el segundo argumento pasa a ser un middleware y el tercero el controlados. De solo existir
+    2 argumentos automáticamente el segundo argumento es reconocido como el controlador.
 
-	Los error son capturados y guardados para ser recibidos dentro del controlador.
+    Los error son capturados y guardados para ser recibidos dentro del controlador.
 
-	    "usuarios.controllers.js"
-	┌─────────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				                  │
-	│ import { Usuario } from '../models/usuario.js';                     │
-	│ import bcryptcj from 'bcryptjs';                                    │
-	│ import { validationResult } from 'express-validator';               │
-	│                                                                     │
-	│ const usuariosPost = async (req, res = response) => {               │
-	│                                                                     │
+    "usuarios.controllers.js"
+    ┌─────────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';				  │
+    │ import { Usuario } from '../models/usuario.js';                     │
+    │ import bcryptcj from 'bcryptjs';                                    │
+    │ import { validationResult } from 'express-validator';               │
+    │                                                                     │
+    │ const usuariosPost = async (req, res = response) => {               │
+    │                                                                     │
     │    /* const { google, ...resto } = req.body; */                     │
     │                                                                     │
-	│	 const { nombre, correo, password, rol } = req.body               │
+    │	 const { nombre, correo, password, rol } = req.body               │
     │                                                                     │
-	│	 const usuario = new Usuario( { nombre, correo, password, rol} ); │
+    │	 const usuario = new Usuario( { nombre, correo, password, rol} ); │
     │                                                                     │
-	│    // Verificar si el correo existe                                 │
-    │    const existeEmail = await Usuario.findOne({ correo });           │   Busca una coincidencia en el campo correo,
-    │	 if (existeEmail) {                                               │   se encontrarla la guarda en la constante
-    │     	 return res.status(400).json({                                │   y luego en el if es retornado un error y
-    │            msg: 'Ee correo ya está registrado'                      │   la función termina.
+    │    // Verificar si el correo existe                                 │
+    │    const existeEmail = await Usuario.findOne({ correo });           │  Busca una coincidencia en el campo correo,
+    │	 if (existeEmail) {                                               │  se encontrarla la guarda en la constante
+    │     	 return res.status(400).json({                            │  y luego en el if es retornado un error y
+    │            msg: 'Ee correo ya está registrado'                      │  la función termina.
     │        })                                                           │
     │    }                                                                │
-	│    // Encriptar la contraseña                                       │
-	│    const salt = bcryptcj.genSaltSync();                             │
-	│    usuario.password = bcryptcj.hashSync( password, salt );          │
+    │    // Encriptar la contraseña                                       │
+    │    const salt = bcryptcj.genSaltSync();                             │
+    │    usuario.password = bcryptcj.hashSync( password, salt );          │
     │                                                                     │
-	│    /* Guardar en BD */                                              │
-	│	 await usuario.save();                                            │
+    │    /* Guardar en BD */                                              │
+    │	 await usuario.save();                                            │
     │                                                                     │
-	│	 res.status(201).json({                                           │
-	│	     msg: 'post API - controlador',                               │
-	│	     usuario                                                      │
-	│	 });                                                              │
-	│ };											                      │
-	│													                  │
-	│													                  │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	                  │
-    │		*/  usuariosDelete, usuariosPatch }			                  │
-    │													                  │
-	└─────────────────────────────────────────────────────────────────────┘
+    │	 res.status(201).json({                                           │
+    │	     msg: 'post API - controlador',                               │
+    │	     usuario                                                      │
+    │	 });                                                              │
+    │ };								  │
+    │									  │
+    │									  │
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	                  │
+    │		*/  usuariosDelete, usuariosPatch }			  │
+    │									  │
+    └─────────────────────────────────────────────────────────────────────┘
 
 // ----------------------------------------------------------------------------------------------------------------
 
-*	Ahora para agregar una validación de roles desde la BD nose hace lo siguiente: 
+*    Ahora para agregar una validación de roles desde la BD nose hace lo siguiente: 
 
-	Primero se crea un modelo de "role.js" en la carpeta "models"
+     Primero se crea un modelo de "role.js" en la carpeta "models"
 
-		"role.js"
-	┌──────────────────────────────────────────────────────┐
-	│	import { Schema, model } from 'mongoose';          │
+     "role.js"
+    ┌──────────────────────────────────────────────────────┐
+    │	import { Schema, model } from 'mongoose';          │
     │                                                      │
-	│	const RoleSchema = Schema({                        │
-	│	    rol: {                                         │
-	│	        type: String,                              │
-	│	        require: [true, 'El rol es obligatorio']   │
-	│	    }                                              │
-	│	});                                                │
+    │	const RoleSchema = Schema({                        │
+    │	    rol: {                                         │
+    │	        type: String,                              │
+    │	        require: [true, 'El rol es obligatorio']   │
+    │	    }                                              │
+    │	});                                                │
     │                                                      │
-	│	export const role = model('Role', RoleSchema);	   │
-	└──────────────────────────────────────────────────────┘
+    │	export const role = model('Role', RoleSchema);	   │
+    └──────────────────────────────────────────────────────┘
 
 
-	Creamos carpeta "helpers" y archivo "db-validators.js".
+     Creamos carpeta "helpers" y archivo "db-validators.js".
 
-		"db-validators.js".
-	┌─────────────────────────────────────────────────────────────────────┐
-	│ import { role } from '../models/role.js';                           │  Se importa role creado en el paso
+     "db-validators.js".
+    ┌─────────────────────────────────────────────────────────────────────┐
+    │ import { role } from '../models/role.js';                           │  Se importa role creado en el paso
     │                                                                     │  anterior.
-	│ const esRoleValido = async(rol ='') => {                            │
+    │ const esRoleValido = async(rol ='') => {                            │
     │                                                                     │
     │    const existeRol = await role.findOne({ rol });                   │
     │    if( !existeRol ){                                                │
@@ -753,277 +753,277 @@ CREACION DE UN REST SERVER POR PASOS corriendo en express
     │    }                                                                │
     │ }                                                                   │
     │                                                                     │
-    │ export { esRoleValido }					                          │
-	└─────────────────────────────────────────────────────────────────────┘
+    │ export { esRoleValido }					          │
+    └─────────────────────────────────────────────────────────────────────┘
 
 
-		"usuarios.routes.js"
-	┌──────────────────────────────────────────────────────────────────────────────────────┐
-	│ import { Router } from 'express';													   │
-	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }     │
-    │		   from '../controllers/usuarios.controllers.js';							   │
+     "usuarios.routes.js"
+    ┌──────────────────────────────────────────────────────────────────────────────────────┐
+    │ import { Router } from 'express';							   │
+    │ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }     │
+    │		   from '../controllers/usuarios.controllers.js';			   │
     │ import { check } from 'express-validator';                                           │
     │ import { validarCampos } from '../middlewares/validar-campos.js';                    │
     │ import { esRoleValido } from '../helpers/db-validators.js';                          │  Importo "esRoleValido"
     │                                                                                      │
-    │ const router = Router();															   │
-    │       																			   │
+    │ const router = Router();								   │
+    │       										   │
     │ router.post('/', [                                                                   │
     │  	    check('nombre', 'El nombre es obligatorio').not().isEmpty(),                   │
-   	│       check('password', 'Password debe ser mayor a 6 letras').isLength({ min: 6 }),  │
+    │       check('password', 'Password debe ser mayor a 6 letras').isLength({ min: 6 }),  │
     │       check('correo', 'El correo no es válido').isEmail(),                           │
     │       check('rol').custom( esRoleValido ),                                           │  Con custom se indica
     │       validarCampos                                                                  │  que estamos usando un
-	│ ] , usuariosPost ); 												                   │  middleware personalizado
-    │ 																					   │
-    │ export { router }																	   │
-	└──────────────────────────────────────────────────────────────────────────────────────┘
+    │ ] , usuariosPost ); 								   │  middleware personalizado
+    │ 											   │
+    │ export { router }									   │
+    └──────────────────────────────────────────────────────────────────────────────────────┘
 
 // -------------------------------------------------------------------------------------------------------------------
 
-*	Para mover el método de verificación de existencia de email de "usuarios.controllers.js" fuera de esté
-	hacer lo siguiente:
+*    Para mover el método de verificación de existencia de email de "usuarios.controllers.js" fuera de esté
+     hacer lo siguiente:
 
-		"db-validators.js".
-	┌─────────────────────────────────────────────────────────────┐
-	│ import { role } from '../models/role.js';                   │
-	│ import { Usuario } from '../models/usuario.js';             │   Importa el Usuario
+     "db-validators.js".
+    ┌─────────────────────────────────────────────────────────────┐
+    │ import { role } from '../models/role.js';                   │
+    │ import { Usuario } from '../models/usuario.js';             │  Importa el Usuario
     │                                                             │
-	│ const esRoleValido = async(rol ='') => {                    │
-	│     const existeRol = await role.findOne({ rol });          │
-	│     if( !existeRol ){                                       │
-	│         throw new Error(`El rol ${rol} no está en la BD`)   │
-	│     }                                                       │
-	│ }                                                           │
+    │ const esRoleValido = async(rol ='') => {                    │
+    │     const existeRol = await role.findOne({ rol });          │
+    │     if( !existeRol ){                                       │
+    │         throw new Error(`El rol ${rol} no está en la BD`)   │
+    │     }                                                       │
+    │ }                                                           │
     │                                                             │
-	│ const emailExiste = async( correo = '' ) => {               │
-	│     const existeEmail = await Usuario.findOne({ correo });  │   Busca en la Bd si existe el correo, de existir 
-	│                                                             │   toma el objeto y lo inserta en existeEmail.
-	│	  if (existeEmail) {                                      │   Si el objeto existe entonces devuelve el error.
-	│         throw new Error(`${ correo } ya está registrado`)   │
-	│     }                                                       │
-	│ }                                                           │
+    │ const emailExiste = async( correo = '' ) => {               │
+    │     const existeEmail = await Usuario.findOne({ correo });  │  Busca en la Bd si existe el correo, de existir 
+    │                                                             │  toma el objeto y lo inserta en existeEmail.
+    │	  if (existeEmail) {                                      │  Si el objeto existe entonces devuelve el error.
+    │         throw new Error(`${ correo } ya está registrado`)   │
+    │     }                                                       │
+    │ }                                                           │
     │                                                             │
-	│ export {esRoleValido, emailExiste }					      │
-	└─────────────────────────────────────────────────────────────┘
+    │ export {esRoleValido, emailExiste }			  │
+    └─────────────────────────────────────────────────────────────┘
 
-		"usuarios.routes.js"
-	┌───────────────────────────────────────────────────────────────────────────────────┐
-	│ import { Router } from 'express';													│
-	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │
-    │		   from '../controllers/usuarios.controllers.js';							│
+     "usuarios.routes.js"
+    ┌───────────────────────────────────────────────────────────────────────────────────┐
+    │ import { Router } from 'express';							│
+    │ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │
+    │		   from '../controllers/usuarios.controllers.js';			│
     │ import { check } from 'express-validator';                                        │
     │ import { validarCampos } from '../middlewares/validar-campos.js';                 │
-    │ import { emailExiste, esRoleValido } from '../helpers/db-validators.js';          │  importo "emailExiste"
-    │                      																│
-    │ const router = Router();															│
-    │       																			│
+    │ import { emailExiste, esRoleValido } from '../helpers/db-validators.js';          │  Importo "emailExiste"
+    │                      								│
+    │ const router = Router();								│
+    │       										│
     │ router.post('/', [                                                                │
     │  	    check('nombre', 'El nombre es obligatorio').not().isEmpty(),                │
-   	│       check('password', 'Password inferior a 6 letras').isLength({ min: 6 }),     │
+    │       check('password', 'Password inferior a 6 letras').isLength({ min: 6 }),     │
     │       check('correo', 'El correo no es válido').isEmail(),                        │
     │       check('correo').custom( emailExiste ),                                      │  Aqui se invoca "emailExiste"
     │       check('rol').custom( esRoleValido ),                                        │
     │       validarCampos                                                               │
-	│ ] , usuariosPost ); 												                │
-    │ 																					│
-    │ export { router }																	│
-	└───────────────────────────────────────────────────────────────────────────────────┘
+    │ ] , usuariosPost ); 								│
+    │ 											│
+    │ export { router }									│
+    └───────────────────────────────────────────────────────────────────────────────────┘
 
-	A y por ultimo se borra de "usuarios.controllers.js" el código que se movio a "db-validators.js", quedando
-	el POST asi:
+    A y por ultimo se borra de "usuarios.controllers.js" el código que se movio a "db-validators.js", quedando
+    el POST asi:
 
-		    "usuarios.controllers.js"
-	┌─────────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				                  │
-	│ import { Usuario } from '../models/usuario.js';                     │
-	│ import bcryptcj from 'bcryptjs';                                    │
-	│                                                                     │
-	│ const usuariosPost = async (req, res = response) => {               │
+    "usuarios.controllers.js"
+    ┌─────────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';				  │
+    │ import { Usuario } from '../models/usuario.js';                     │
+    │ import bcryptcj from 'bcryptjs';                                    │
     │                                                                     │
-	│	 const { nombre, correo, password, rol } = req.body               │
-	│	 const usuario = new Usuario( { nombre, correo, password, rol} ); │
+    │ const usuariosPost = async (req, res = response) => {               │
     │                                                                     │
-	│    // Encriptar la contraseña                                       │
-	│    const salt = bcryptcj.genSaltSync();                             │
-	│    usuario.password = bcryptcj.hashSync( password, salt );          │
+    │	 const { nombre, correo, password, rol } = req.body               │
+    │	 const usuario = new Usuario( { nombre, correo, password, rol} ); │
     │                                                                     │
-	│    /* Guardar en BD */                                              │
-	│	 await usuario.save();                                            │
+    │    // Encriptar la contraseña                                       │
+    │    const salt = bcryptcj.genSaltSync();                             │
+    │    usuario.password = bcryptcj.hashSync( password, salt );          │
     │                                                                     │
-	│	 res.status(201).json({                                           │
-	│	     msg: 'post API - controlador',                               │
-	│	     usuario                                                      │
-	│	 });                                                              │
-	│ };											                      │
-	│													                  │
-	│													                  │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	                  │
-    │		*/  usuariosDelete, usuariosPatch }			                  │
-    │													                  │
-	└─────────────────────────────────────────────────────────────────────┘
+    │    /* Guardar en BD */                                              │
+    │	 await usuario.save();                                            │
+    │                                                                     │
+    │	 res.status(201).json({                                           │
+    │	     msg: 'post API - controlador',                               │
+    │	     usuario                                                      │
+    │	 });                                                              │
+    │ };								  │
+    │									  │
+    │									  │
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	                  │
+    │		*/  usuariosDelete, usuariosPatch }			  │
+    │									  │
+    └─────────────────────────────────────────────────────────────────────┘
 
 // -------------------------------------------------------------------------------------------------------------------
 
-*	Agregamos validaciones al "PUT"
+*    Agregamos validaciones al "PUT"
 
-		    "usuarios.controllers.js"
-	┌───────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				                │
-	│ import { Usuario } from '../models/usuario.js';                   │
-	│ import bcryptcj from 'bcryptjs';                                  │
-	│                                                                   │
-	│ const usuariosPut = async(req, res = response) => {               │
-	│    const {id} = req.params;                                       │	Capturo el parametro id que va a parte 
-	│                                                                   │   del body.
-	│    const { _id, password, google, correo, ...resto } = req.body;  │   Capturo el body, extrayendo alguno de los
-	│    /* TODO validar contra base de datos */                        │   parametros que no planeo mostrar por 
-	│                                                                   │   pantalla.
+     "usuarios.controllers.js"
+    ┌───────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';				│
+    │ import { Usuario } from '../models/usuario.js';                   │
+    │ import bcryptcj from 'bcryptjs';                                  │
+    │                                                                   │
+    │ const usuariosPut = async(req, res = response) => {               │
+    │    const {id} = req.params;                                       │  Capturo el parametro id que va a parte 
+    │                                                                   │  del body.
+    │    const { _id, password, google, correo, ...resto } = req.body;  │  Capturo el body, extrayendo alguno de los
+    │    /* TODO validar contra base de datos */                        │  parametros que no planeo mostrar por 
+    │                                                                   │  pantalla.
     │    if ( password ) {                                              │ 	
-	│        /* Encriptar la contraseña */                              │
-	│        const salt = bcryptcj.genSaltSync();                       │   Esté segmento genera el encriptamiento
-	│        resto.password = bcryptcj.hashSync( password, salt );      │   de la contraseña "password".
-	│    }                                                              │
-	│    const usuario = await Usuario.findByIdAndUpdate( id, resto )   │   Esté segmento ubica el usuario por el campo
-	│    res.json({                                                     │   id y realiza el update de los campos
-	│        msg: 'put API - controlador',                              │   contenidos en el objeto resto.
-	│        usuario                                                    │
-	│    });                                                            │
-	│ };										                        │
-	│													                │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	                │
-    │		*/  usuariosDelete, usuariosPatch }			                │
-    │													                │
-	└───────────────────────────────────────────────────────────────────┘
+    │        /* Encriptar la contraseña */                              │
+    │        const salt = bcryptcj.genSaltSync();                       │   Esté segmento genera el encriptamiento
+    │        resto.password = bcryptcj.hashSync( password, salt );      │   de la contraseña "password".
+    │    }                                                              │
+    │    const usuario = await Usuario.findByIdAndUpdate( id, resto )   │   Esté segmento ubica el usuario por el campo
+    │    res.json({                                                     │   id y realiza el update de los campos
+    │        msg: 'put API - controlador',                              │   contenidos en el objeto resto.
+    │        usuario                                                    │
+    │    });                                                            │
+    │ };								│
+    │									│
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	                │
+    │		*/  usuariosDelete, usuariosPatch }			│
+    │								        │
+    └───────────────────────────────────────────────────────────────────┘
 
-		"db-validators.js".
-	┌───────────────────────────────────────────────────────────────┐
-	│ import { role } from '../models/role.js';                     │
-	│ import { Usuario } from '../models/usuario.js';               │
+     "db-validators.js".
+    ┌───────────────────────────────────────────────────────────────┐
+    │ import { role } from '../models/role.js';                     │
+    │ import { Usuario } from '../models/usuario.js';               │
     │                                                               │
-	│ const esRoleValido = async(rol ='') => {                      │
-	│     const existeRol = await role.findOne({ rol });            │
-	│     if( !existeRol ){                                         │
-	│         throw new Error(`El rol ${rol} no está en la BD`)     │
-	│     }                                                         │
-	│ }                                                             │
+    │ const esRoleValido = async(rol ='') => {                      │
+    │     const existeRol = await role.findOne({ rol });            │
+    │     if( !existeRol ){                                         │
+    │         throw new Error(`El rol ${rol} no está en la BD`)     │
+    │     }                                                         │
+    │ }                                                             │
     │                                                               │
-	│ const emailExiste = async( correo = '' ) => {                 │
-	│     const existeEmail = await Usuario.findOne({ correo });    │
-	│                                                               │
-	│	  if (existeEmail) {                                        │
-	│         throw new Error(`${ correo } ya está registrado`)     │
-	│     }                                                         │
-	│ }                                                             │
+    │ const emailExiste = async( correo = '' ) => {                 │
+    │     const existeEmail = await Usuario.findOne({ correo });    │
     │                                                               │
-	│ const usuarioExiste = async( id ) => {                        │	Agregamos validación de existencia del Id 
-	│    const existeUsuario = await Usuario.findById(id);          │   ingresado en la BD antes de hacer update
-	│    if (!existeUsuario) {                                      │
-	│        throw new Error(`Usuario con id : ${ id } no existe`)  │
-	│    }                                                          │
-	│ }                                                     	    │
+    │	  if (existeEmail) {                                        │
+    │         throw new Error(`${ correo } ya está registrado`)     │
+    │     }                                                         │
+    │ }                                                             │
     │                                                               │
-	│ export { esRoleValido, emailExiste, emailExiste }		        │
-	└───────────────────────────────────────────────────────────────┘
+    │ const usuarioExiste = async( id ) => {                        │  Agregamos validación de existencia del Id 
+    │    const existeUsuario = await Usuario.findById(id);          │  ingresado en la BD antes de hacer update
+    │    if (!existeUsuario) {                                      │
+    │        throw new Error(`Usuario con id : ${ id } no existe`)  │
+    │    }                                                          │
+    │ }                                                     	    │
+    │                                                               │
+    │ export { esRoleValido, emailExiste, emailExiste }		    │
+    └───────────────────────────────────────────────────────────────┘
 
-			"usuarios.routes.js"
-	┌───────────────────────────────────────────────────────────────────────────────────┐
-	│ import { Router } from 'express';													│
-	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │
-    │		   from '../controllers/usuarios.controllers.js';							│
+     "usuarios.routes.js"
+    ┌───────────────────────────────────────────────────────────────────────────────────┐
+    │ import { Router } from 'express';							│
+    │ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │
+    │		   from '../controllers/usuarios.controllers.js';			│
     │ import { check } from 'express-validator';                                        │
     │ import { validarCampos } from '../middlewares/validar-campos.js';                 │
     │ import { emailExiste, esRoleValido,usuarioExiste }                                │
-    │          from '../helpers/db-validators.js';            							│
+    │          from '../helpers/db-validators.js';            				│
     │                                                                                   │
-    │ const router = Router();															│
-    │       																			│
+    │ const router = Router();								│
+    │       										│
     │ router.put('/:id', [                                                              │  para obtener el valor que 
     │	  check('id', 'No es un ID válido').isMongoId(),                                │  se pase aqui de manera 
     │	  check('id').custom( usuarioExiste ),                                          │  dinámica se coloca /:id
     │	  /* check('rol').custom( esRoleValido ),  */                                   │
     │	  validarCampos                                                                 │
-	│ ] , usuariosPut );   												                │
-    │ 																					│
-    │ export { router }																	│
-	└───────────────────────────────────────────────────────────────────────────────────┘
+    │ ] , usuariosPut );   								│
+    │ 											│
+    │ export { router }									│
+    └───────────────────────────────────────────────────────────────────────────────────┘
 
 // -------------------------------------------------------------------------------------------------------------------
 
-*	Agregamos validaciones al "GET"
+*    Agregamos validaciones al "GET"
 
-		    "usuarios.controllers.js"
-	┌───────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				                │
-	│ import { Usuario } from '../models/usuario.js';                   │
-	│ import bcryptcj from 'bcryptjs';                                  │
-	│                                                                   │
-	│ const usuariosGet = async(req = request, res = response) => {     │
-	│  	const { limite = 5, desde = 0 } = req.query;                    │
-	│   const query = { estado: true }                                  │  "Estado: true" está solo para agregar un
-	│                                                                   │  filtro, ya que en la BD los con 
-	│   const [ total, usuarios ] = await Promise.all( [                │
-	│       Usuario.countDocuments(query),                              │  "estado:false" son usuarios desactivados
+     "usuarios.controllers.js"
+    ┌───────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';				│
+    │ import { Usuario } from '../models/usuario.js';                   │
+    │ import bcryptcj from 'bcryptjs';                                  │
+    │                                                                   │
+    │ const usuariosGet = async(req = request, res = response) => {     │
+    │  	const { limite = 5, desde = 0 } = req.query;                    │
+    │   const query = { estado: true }                                  │  "Estado: true" está solo para agregar un
+    │                                                                   │  filtro, ya que en la BD los con 
+    │   const [ total, usuarios ] = await Promise.all( [                │
+    │       Usuario.countDocuments(query),                              │  "estado:false" son usuarios desactivados
     │       Usuario.find(query)                                         │
-    │    		.skip(desde)                                            │
-    │        	.limit(limite)   	                                    │
+    │    		.skip(desde)                                    │
+    │        	.limit(limite)   	                                │
     │ 	])                                                              │
     │                                                                   │
     │	res.json({                                                      │
-    │		total,                                                      │  
-    │		usuarios                                                    │ 
+    │		total,                                                  │  
+    │		usuarios                                                │ 
     │	});                                                             │
-	│ }									                                │
-	│													                │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	                │
-    │		*/  usuariosDelete, usuariosPatch }			                │
-    │													                │
-	└───────────────────────────────────────────────────────────────────┘
+    │ }									│
+    │									│
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	                │
+    │		*/  usuariosDelete, usuariosPatch }			│
+    │									│
+    └───────────────────────────────────────────────────────────────────┘
 
 // -------------------------------------------------------------------------------------------------------------------
 
-* Agregamos validación "DELETE"
+*    Agregamos validación "DELETE"
 
-			"usuarios.routes.js"
-	┌───────────────────────────────────────────────────────────────────────────────────┐
-	│ import { Router } from 'express';													│
-	│ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │
-    │		   from '../controllers/usuarios.controllers.js';							│
+     "usuarios.routes.js"
+    ┌───────────────────────────────────────────────────────────────────────────────────┐
+    │ import { Router } from 'express';							│
+    │ import { usuariosDelete, usuariosGet, usuariosPatch, usuariosPost, usuariosPut }  │
+    │		   from '../controllers/usuarios.controllers.js';			│
     │ import { check } from 'express-validator';                                        │
     │ import { validarCampos } from '../middlewares/validar-campos.js';                 │
     │ import { emailExiste, esRoleValido,usuarioExiste }                                │
-    │          from '../helpers/db-validators.js';            							│
+    │          from '../helpers/db-validators.js';            				│
     │                                                                                   │
-    │ const router = Router();															│
-    │       																			│
-	│ router.delete('/:id',[                                                            │  Agregamos las validaciones
-	│     check('id', 'No es un ID válido').isMongoId(),                                │  necesarias al delete y la 
-	│     check('id').custom( usuarioExiste ),                                          │  captura del id a eliminar
-	│     validarCampos                                                                 │
-	│ ], usuariosDelete);				     							                │
-    │ 																					│
-    │ export { router }																	│
-	└───────────────────────────────────────────────────────────────────────────────────┘
+    │ const router = Router();								│
+    │       										│
+    │ router.delete('/:id',[                                                            │  Agregamos las validaciones
+    │     check('id', 'No es un ID válido').isMongoId(),                                │  necesarias al delete y la 
+    │     check('id').custom( usuarioExiste ),                                          │  captura del id a eliminar
+    │     validarCampos                                                                 │
+    │ ], usuariosDelete);				     				│
+    │ 											│
+    │ export { router }									│
+    └───────────────────────────────────────────────────────────────────────────────────┘
 
-		    "usuarios.controllers.js"
-	┌──────────────────────────────────────────────────────────────────────────────┐
-	│ import { response } from 'express';				                		   │
-	│ import { Usuario } from '../models/usuario.js';                   		   │
-	│ import bcryptcj from 'bcryptjs';                                  		   │
-	│                                                                   		   │
-	│ const usuariosDelete = async (req, res = response) => {           		   │
-	│	 const { id } = req.params;                                     		   │
-    │	 /* Borrado fisicamente */                                      		   │
-	│	 /* const usuario = await Usuario.findByIdAndDelete( id ); */   		   │  No se recomienda borrar 
-	│	 /* desactivación del usuario */                                		   │  solo desactivar ya que puede
-	│	 const usuario = await Usuario.findByIdAndUpdate(id, { estado: false } );  │  haber datos ligados al "usuario"
-	│	 res.json({                                                     		   │  
-	│	    id,                                                         		   │
-	│	    usuario                                                     		   │
-	│	 });                                                            		   │
- 	│ };								                                		   │
-	│													                		   │
-	│ export{ usuariosGet, usuariosPut, usuariosPost,/*	                		   │
-    │		*/  usuariosDelete, usuariosPatch }			                		   │
-    │													                		   │
-	└──────────────────────────────────────────────────────────────────────────────┘
+     "usuarios.controllers.js"
+    ┌──────────────────────────────────────────────────────────────────────────────┐
+    │ import { response } from 'express';				           │
+    │ import { Usuario } from '../models/usuario.js';                   	   │
+    │ import bcryptcj from 'bcryptjs';                                  	   │
+    │                                                                   	   │
+    │ const usuariosDelete = async (req, res = response) => {           	   │
+    │	 const { id } = req.params;                                     	   │
+    │	 /* Borrado fisicamente */                                      	   │
+    │	 /* const usuario = await Usuario.findByIdAndDelete( id ); */   	   │  No se recomienda borrar 
+    │	 /* desactivación del usuario */                                	   │  solo desactivar ya que puede
+    │	 const usuario = await Usuario.findByIdAndUpdate(id, { estado: false } );  │  haber datos ligados al "usuario"
+    │	 res.json({                                                     	   │  
+    │	    id,                                                         	   │
+    │	    usuario                                                     	   │
+    │	 });                                                            	   │
+    │ };								           │
+    │										   │
+    │ export{ usuariosGet, usuariosPut, usuariosPost,/*	                           │
+    │		*/  usuariosDelete, usuariosPatch }			           │
+    │										   │
+    └──────────────────────────────────────────────────────────────────────────────┘
